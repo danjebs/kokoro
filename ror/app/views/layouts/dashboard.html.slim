@@ -12,12 +12,12 @@ html
     meta name="viewport" content="width=device-width,initial-scale=1"
     meta name="view-transition" content="same-origin"
 
-  body class="flex bg-blue-100 p-12"
+  body class="flex bg-blue-100 dark:bg-blue-900 p-12"
     / div class="max-w-5xl mx-auto my-6 lg:my-12 px-3 md:px-4"
     /   - if notice.present?
     /     p class="fixed top-4 right-4 py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"
     /       = notice
     div class="flex flex-grow"
       aside class="w-full md:max-w-64"
-      div class="flex-grow p-12 bg-white rounded-3xl"
+      div class="flex-grow p-12 bg-white dark:bg-gray-800 rounded-3xl"
         = yield
