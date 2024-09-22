@@ -25,6 +25,7 @@ services:
       - "3000:3000"
     depends_on:
       - pg
+    tty: true
   ngx:
     image: 'ngx'
     restart: always
