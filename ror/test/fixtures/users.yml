@@ -1,9 +1,9 @@
-user_admin:
-  name: Admin Guy
-  email: adminguy@yopmail.com
+bean:
+  name: Bean
+  email: bean@yopmail.com
   role: admin
 
-user_regular:
-  name: User Guy
-  email: userguy@yopmail.com
+bundy:
+  name: Bundy
+  email: bundy@yopmail.com
   role: user

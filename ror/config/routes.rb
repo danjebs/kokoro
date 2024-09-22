@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
-  resources :task_statuses
+  root "rails/health#show"
+
   resources :boards
   # other routes...
 

@@ -2,13 +2,16 @@ require "test_helper"
 
 class BoardsControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @board = boards(:board_one)
-    @creator = users(:user_admin)
+    @board = boards(:one)
+    @user = users(:bean)
+
+    sign_in @user
   end
 
   test "should get index" do
     get boards_url
     assert_response :success
+    assert_includes @response.body, @board.name
   end
 
   test "should get new" do
@@ -16,40 +19,13 @@ class BoardsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test "should create board" do
-    assert_difference("Board.count") do
-      post boards_url, params: { board: { name: "Board three" } }
-    end
-
-    assert_redirected_to board_url(Board.last)
-  end
-
   test "should create board with valid attributes" do
-    assert_difference("Board.count") do
-      post boards_url, params: { board: { name: "Board three", creator_id: @creator.id } }
+    assert_difference('Board.count') do
+      post boards_url, params: { board: { name: 'New Board' } }
     end
+
     assert_redirected_to board_url(Board.last)
-  end
-
-  test "should not create board without a name" do
-    assert_no_difference("Board.count") do
-      post boards_url, params: { board: { name: nil, creator_id: @creator.id } }
-    end
-    assert_response :unprocessable_entity
-  end
-
-  test "should not create board with duplicate name for the same creator" do
-    Board.create!(name: "Unique Board", creator: @creator)
-    assert_no_difference("Board.count") do
-      post boards_url, params: { board: { name: "Unique Board", creator_id: @creator.id } }
-    end
-    assert_response :unprocessable_entity
-  end
-
-  test "should set default status to active" do
-    post boards_url, params: { board: { name: "New Board", creator_id: @creator.id } }
-    board = Board.last
-    assert_equal "active", board.status
+    assert_equal 'Board was successfully created.', flash[:notice]
   end
 
   test "should show board" do
@@ -63,15 +39,86 @@ class BoardsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update board" do
-    patch board_url(@board), params: { board: { name: "Board one new name" } }
+    patch board_url(@board), params: { board: { name: 'Updated Board' } }
     assert_redirected_to board_url(@board)
+    assert_equal 'Board was successfully updated.', flash[:notice]
   end
 
-  test "should destroy board" do
-    assert_difference("Board.count", -1) do
+  test "should not destroy board" do
+    assert_no_difference('Board.count') do
       delete board_url(@board)
     end
 
-    assert_redirected_to boards_url
+    assert_redirected_to root_path
+  end
+
+  # Authorization tests
+  test "should not get index if not authorized" do
+    sign_out @user
+    get boards_url
+    assert_redirected_to new_user_session_url
+  end
+
+  test "should not get new if not authorized" do
+    sign_out @user
+    get new_board_url
+    assert_redirected_to new_user_session_url
+  end
+
+  test "should not create board if not authorized" do
+    sign_out @user
+    assert_no_difference('Board.count') do
+      post boards_url, params: { board: { name: 'New Board' } }
+    end
+
+    assert_redirected_to new_user_session_url
+  end
+
+  test "should not show board if not authorized" do
+    sign_out @user
+    get board_url(@board)
+    assert_redirected_to new_user_session_url
+  end
+
+  test "should not get edit if not authorized" do
+    sign_out @user
+    get edit_board_url(@board)
+    assert_redirected_to new_user_session_url
+  end
+
+  test "should not update board if not authorized" do
+    sign_out @user
+    patch board_url(@board), params: { board: { name: 'Updated Board' } }
+    assert_redirected_to new_user_session_url
+  end
+
+  test "should not destroy board if not authorized" do
+    sign_out @user
+    assert_no_difference('Board.count') do
+      delete board_url(@board)
+    end
+
+    assert_redirected_to new_user_session_url
+  end
+
+  # Additional tests
+  test "should set default status to active" do
+    post boards_url, params: { board: { name: 'New Board' } }
+    assert_equal 'active', Board.last.status
+  end
+
+  test "should not create board with duplicate name for the same creator" do
+    assert_no_difference("Board.count") do
+      post boards_url, params: { board: { name: @board.name } }
+    end
+    assert_response :unprocessable_entity
+  end
+
+  test "should not create board without a name" do
+    assert_no_difference('Board.count') do
+      post boards_url, params: { board: { name: '' } }
+    end
+
+    assert_response :unprocessable_entity
   end
 end

@@ -1,8 +1,8 @@
 class Board < ApplicationRecord
   belongs_to :creator, class_name: :User
 
-  has_many :task_statuses
-  has_many :participants, class_name: :User
+  has_many :task_statuses, dependent: :destroy
+  has_many :participants, class_name: :User, dependent: :destroy
 
   attribute :status, :string
   enum status: { active: "active", archived: "archived" }, _prefix: :status_is

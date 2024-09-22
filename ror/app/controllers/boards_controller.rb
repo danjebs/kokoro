@@ -2,26 +2,39 @@ class BoardsController < ApplicationController
   layout 'dashboard'
 
   before_action :set_board, only: %i[show edit update destroy]
+  before_action :authorize_board, only: %i[show edit update destroy]
 
   def index
+    authorize Board
+
     @boards = Board.all
+
     render Boards::List.new(boards: @boards)
   end
 
   def show
+    authorize @board
+
     render Boards::Show.new(board: @board)
   end
 
   def new
-    @board = Board.new()
+    authorize Board
+
+    @board = Board.new
+
     render Boards::New.new(board: @board)
   end
 
   def edit
+    authorize @board
+
     render Boards::New.new(board: @board)
   end
 
   def create
+    authorize Board
+
     @board = Board.new(**board_params, creator: current_user)
 
     respond_to do |format|
@@ -36,6 +49,8 @@ class BoardsController < ApplicationController
   end
 
   def update
+    authorize @board
+
     respond_to do |format|
       if @board.update(board_params)
         format.html { redirect_to @board, notice: "Board was successfully updated." }
@@ -48,6 +63,8 @@ class BoardsController < ApplicationController
   end
 
   def destroy
+    authorize @board
+
     @board.destroy!
 
     respond_to do |format|
@@ -57,13 +74,16 @@ class BoardsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_board
-      @board = Board.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def board_params
-      params.require(:board).permit(:name)
-    end
+  def set_board
+    @board = Board.find(params[:id])
+  end
+
+  def authorize_board
+    authorize @board
+  end
+
+  def board_params
+    params.require(:board).permit(:name)
+  end
 end
