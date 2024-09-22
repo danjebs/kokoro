@@ -21,6 +21,8 @@ gem "importmap-rails"
 gem "turbo-rails"
 gem "stimulus-rails"
 gem "tailwindcss-rails"
+gem "view_component"
+gem "slim"
 
 # api stuff
 gem "jbuilder"
