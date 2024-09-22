@@ -10,13 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_09_22_043617) do
+ActiveRecord::Schema[7.1].define(version: 2024_09_22_110506) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   # Custom types defined in this database.
   # Note that some types may not work with other database engines. Be careful if changing database.
   create_enum "board_status", ["active", "archived"]
+  create_enum "task_status_state", ["inactive", "active", "archived"]
   create_enum "user_role", ["user", "admin"]
 
   create_table "boards", force: :cascade do |t|
@@ -37,6 +38,16 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_22_043617) do
     t.index ["slug"], name: "index_families_on_slug", unique: true
   end
 
+  create_table "task_statuses", force: :cascade do |t|
+    t.bigint "board_id", null: false
+    t.string "name"
+    t.integer "position"
+    t.string "state"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["board_id"], name: "index_task_statuses_on_board_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "name", default: "", null: false
@@ -54,5 +65,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_22_043617) do
   end
 
   add_foreign_key "boards", "users", column: "creator_id"
+  add_foreign_key "task_statuses", "boards"
   add_foreign_key "users", "families"
 end
