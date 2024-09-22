@@ -23,5 +23,8 @@ module Ror
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+
+    # Add this line to ensure Rails can find the components
+    config.view_component.view_component_path = "app/components"
   end
 end

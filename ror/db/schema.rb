@@ -10,13 +10,32 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_04_13_092840) do
+ActiveRecord::Schema[7.1].define(version: 2024_09_22_043617) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   # Custom types defined in this database.
   # Note that some types may not work with other database engines. Be careful if changing database.
+  create_enum "board_status", ["active", "archived"]
   create_enum "user_role", ["user", "admin"]
+
+  create_table "boards", force: :cascade do |t|
+    t.string "name"
+    t.integer "position"
+    t.bigint "creator_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.enum "status", enum_type: "board_status"
+    t.index ["creator_id"], name: "index_boards_on_creator_id"
+  end
+
+  create_table "families", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "slug", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["slug"], name: "index_families_on_slug", unique: true
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -28,8 +47,12 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_13_092840) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.enum "role", enum_type: "user_role"
+    t.bigint "family_id"
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["family_id"], name: "index_users_on_family_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "boards", "users", column: "creator_id"
+  add_foreign_key "users", "families"
 end

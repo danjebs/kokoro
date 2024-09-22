@@ -1,0 +1,9 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+board_one:
+  name: Board One
+  creator: user_admin
+
+board_two:
+  name: Board Two
+  creator: user_regular

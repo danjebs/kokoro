@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
-  #
+  resources :boards
+  # other routes...
 
   devise_for :users,
     skip: [:sessions],

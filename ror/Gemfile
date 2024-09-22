@@ -23,6 +23,7 @@ gem "stimulus-rails"
 gem "tailwindcss-rails"
 gem "view_component"
 gem "slim"
+gem "slim-rails"
 
 # api stuff
 gem "jbuilder"

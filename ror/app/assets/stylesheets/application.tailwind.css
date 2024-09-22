@@ -2,12 +2,42 @@
 @tailwind components;
 @tailwind utilities;
 
-/*
-
 @layer components {
-  .btn-primary {
-    @apply py-2 px-4 bg-blue-200;
+  body {
+    @apply min-h-screen;
+  }
+
+  h1, h2, h3, h4 {
+    @apply mb-2 text-indigo-800 dark:text-blue-200;
+  }
+
+  h1 {
+    @apply text-2xl font-bold underline underline-offset-4 decoration-2 decoration-amber-300 decoration-wavy;
+  }
+
+  h2 {
+    @apply text-lg font-semibold;
+  }
+
+  h3 {
+    @apply text-lg font-medium;
+  }
+
+  label {
+    @apply text-sm text-gray-500 dark:text-gray-300 font-semibold uppercase;
+  }
+
+  trix-toolbar.trix-button--icon-number-list::before {
+    @apply dark:bg-gray-500;
+  }
+
+  textarea, input[type=text], select, trix-editor.trix-content {
+    @apply block shadow rounded-md outline-none p-3; /** caret-primary-500 ring-primary-500 */
+    @apply border-gray-200;
+    @apply dark:bg-gray-700 dark:border-gray-400 dark:text-gray-300;
+  }
+
+  .btn {
+    @apply px-4 py-3 text-white bg-yellow-400 rounded-lg font-semibold shadow-md hover:shadow-sm cursor-pointer;
   }
 }
-
-*/
