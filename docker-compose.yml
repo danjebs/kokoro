@@ -1,0 +1,39 @@
+version: '3'
+services:
+  pg:
+    image: 'postgres:16.2'
+    restart: always
+    volumes:
+      - ./pg/tmp/db:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5433:5432"
+    expose:
+      - "5432"
+  ror:
+    image: 'ror'
+    build:
+      dockerfile: ./Dockerfile.dev
+      context: ./ror
+    volumes:
+      - /var/www/html/rails/tmp
+      - ./ror:/var/www/html/ror
+    environment:
+      - RAILS_ENV=development
+    ports:
+      - "3000:3000"
+    depends_on:
+      - pg
+  ngx:
+    image: 'ngx'
+    restart: always
+    build:
+      dockerfile: Dockerfile
+      context: ./ngx
+    ports:
+      - '80:80'
+    volumes:
+      - ./ngx/default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - ror
