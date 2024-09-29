@@ -20,12 +20,12 @@ class TaskStatusesControllerTest < ActionDispatch::IntegrationTest
   # end
 
   # test "should create task status with valid attributes" do
-  #   assert_difference('TaskStatus.count') do
-  #     post task_statuses_url, params: { task_status: { name: 'New Status', board_id: @task_status.board_id } }
+  #   assert_difference("TaskStatus.count") do
+  #     post task_statuses_url, params: { task_status: { name: "New Status", board_id: @task_status.board_id } }
   #   end
 
   #   assert_redirected_to task_status_url(TaskStatus.last)
-  #   assert_equal 'Task status was successfully created.', flash[:notice]
+  #   assert_equal "Task status was successfully created.", flash[:notice]
   # end
 
   # test "should show task status" do
@@ -39,18 +39,18 @@ class TaskStatusesControllerTest < ActionDispatch::IntegrationTest
   # end
 
   # test "should update task status" do
-  #   patch task_status_url(@task_status), params: { task_status: { name: 'Updated Status' } }
+  #   patch task_status_url(@task_status), params: { task_status: { name: "Updated Status" } }
   #   assert_redirected_to task_status_url(@task_status)
-  #   assert_equal 'Task status was successfully updated.', flash[:notice]
+  #   assert_equal "Task status was successfully updated.", flash[:notice]
   # end
 
   # test "should destroy task status" do
-  #   assert_difference('TaskStatus.count', -1) do
+  #   assert_difference("TaskStatus.count", -1) do
   #     delete task_status_url(@task_status)
   #   end
 
   #   assert_redirected_to task_statuses_url
-  #   assert_equal 'Task status was successfully destroyed.', flash[:notice]
+  #   assert_equal "Task status was successfully destroyed.", flash[:notice]
   # end
 
   # # Authorization tests
@@ -68,8 +68,8 @@ class TaskStatusesControllerTest < ActionDispatch::IntegrationTest
 
   # test "should not create task status if not authorized" do
   #   sign_out @user
-  #   assert_no_difference('TaskStatus.count') do
-  #     post task_statuses_url, params: { task_status: { name: 'New Status', board_id: @task_status.board_id } }
+  #   assert_no_difference("TaskStatus.count") do
+  #     post task_statuses_url, params: { task_status: { name: "New Status", board_id: @task_status.board_id } }
   #   end
 
   #   assert_redirected_to new_user_session_url
@@ -89,13 +89,13 @@ class TaskStatusesControllerTest < ActionDispatch::IntegrationTest
 
   # test "should not update task status if not authorized" do
   #   sign_out @user
-  #   patch task_status_url(@task_status), params: { task_status: { name: 'Updated Status' } }
+  #   patch task_status_url(@task_status), params: { task_status: { name: "Updated Status" } }
   #   assert_redirected_to new_user_session_url
   # end
 
   # test "should not destroy task status if not authorized" do
   #   sign_out @user
-  #   assert_no_difference('TaskStatus.count') do
+  #   assert_no_difference("TaskStatus.count") do
   #     delete task_status_url(@task_status)
   #   end
 

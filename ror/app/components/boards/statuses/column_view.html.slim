@@ -1,0 +1,8 @@
+div class="flex flex-col w-80 h-full p-3 rounded-xl bg-gray-50 dark:bg-green-800"
+  div class="flex-grow-0"
+    h3 class="text-green-950"
+      = task_status.name
+  div class="flex-grow flex flex-col gap-2"
+    = render Boards::Tasks::Listing.with_collection(task_status.tasks)
+  div class="flex flex-grow-0 gap-3"
+    = link_to "+ New", new_task_path(task: { board_id: task_status.board_id, task_status_id: task_status.id }), class: "w-full p-3"

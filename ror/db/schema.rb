@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_09_22_110506) do
+ActiveRecord::Schema[7.1].define(version: 2024_09_22_131854) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -48,6 +48,21 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_22_110506) do
     t.index ["board_id"], name: "index_task_statuses_on_board_id"
   end
 
+  create_table "tasks", force: :cascade do |t|
+    t.string "title"
+    t.bigint "board_id", null: false
+    t.bigint "task_status_id", null: false
+    t.bigint "creator_id", null: false
+    t.bigint "assignee_id"
+    t.integer "position"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["assignee_id"], name: "index_tasks_on_assignee_id"
+    t.index ["board_id"], name: "index_tasks_on_board_id"
+    t.index ["creator_id"], name: "index_tasks_on_creator_id"
+    t.index ["task_status_id"], name: "index_tasks_on_task_status_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "name", default: "", null: false
@@ -66,5 +81,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_22_110506) do
 
   add_foreign_key "boards", "users", column: "creator_id"
   add_foreign_key "task_statuses", "boards"
+  add_foreign_key "tasks", "boards"
+  add_foreign_key "tasks", "task_statuses"
+  add_foreign_key "tasks", "users", column: "assignee_id"
+  add_foreign_key "tasks", "users", column: "creator_id"
   add_foreign_key "users", "families"
 end

@@ -28,7 +28,7 @@ class TaskStatusesController < ApplicationController
     @task_status = TaskStatus.new(task_status_params)
 
     if @task_status.save
-      redirect_to @task_status, notice: 'Task status was successfully created.'
+      redirect_to @task_status, notice: "Task status was successfully created."
     else
       render :new
     end
@@ -38,7 +38,7 @@ class TaskStatusesController < ApplicationController
     authorize @task_status
 
     if @task_status.update(task_status_params)
-      redirect_to @task_status, notice: 'Task status was successfully updated.'
+      redirect_to @task_status, notice: "Task status was successfully updated."
     else
       render :edit
     end
@@ -48,7 +48,7 @@ class TaskStatusesController < ApplicationController
     authorize @task_status
 
     @task_status.destroy
-    redirect_to task_statuses_url, notice: 'Task status was successfully destroyed.'
+    redirect_to task_statuses_url, notice: "Task status was successfully destroyed."
   end
 
   private

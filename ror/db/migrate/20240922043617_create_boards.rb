@@ -7,7 +7,6 @@ class CreateBoards < ActiveRecord::Migration[7.1]
     create_table :boards do |t|
 
       t.string :name
-      t.integer :position
       t.references :creator, null: false, foreign_key: { to_table: :users }
 
       t.timestamps

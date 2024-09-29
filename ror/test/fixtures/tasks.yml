@@ -1,0 +1,27 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+task_to_do:
+  title: Task One
+  position: 1
+  task_status: :to_do
+  creator: :bean
+  assignee: :bean
+  board: :one
+
+task_doing:
+  title: Task Two
+  position: 2
+  task_status: :doing
+  creator: :bean
+  assignee: :bundy
+  board: :one
+
+
+task_done:
+  title: Task Three
+  position: 3
+  task_status: :done
+  creator: :bean
+  assignee: :bean
+  board: :one
+

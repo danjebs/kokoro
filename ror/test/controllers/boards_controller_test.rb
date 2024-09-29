@@ -20,12 +20,16 @@ class BoardsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should create board with valid attributes" do
-    assert_difference('Board.count') do
-      post boards_url, params: { board: { name: 'New Board' } }
+    assert_difference("Board.count") do
+      post boards_url, params: {
+        board: {
+          name: "New Board"
+        }
+      }
     end
 
     assert_redirected_to board_url(Board.last)
-    assert_equal 'Board was successfully created.', flash[:notice]
+    assert_equal "Board was successfully created.", flash[:notice]
   end
 
   test "should show board" do
@@ -39,13 +43,13 @@ class BoardsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update board" do
-    patch board_url(@board), params: { board: { name: 'Updated Board' } }
+    patch board_url(@board), params: { board: { name: "Updated Board" } }
     assert_redirected_to board_url(@board)
-    assert_equal 'Board was successfully updated.', flash[:notice]
+    assert_equal "Board was successfully updated.", flash[:notice]
   end
 
   test "should not destroy board" do
-    assert_no_difference('Board.count') do
+    assert_no_difference("Board.count") do
       delete board_url(@board)
     end
 
@@ -67,8 +71,8 @@ class BoardsControllerTest < ActionDispatch::IntegrationTest
 
   test "should not create board if not authorized" do
     sign_out @user
-    assert_no_difference('Board.count') do
-      post boards_url, params: { board: { name: 'New Board' } }
+    assert_no_difference("Board.count") do
+      post boards_url, params: { board: { name: "New Board" } }
     end
 
     assert_redirected_to new_user_session_url
@@ -88,13 +92,13 @@ class BoardsControllerTest < ActionDispatch::IntegrationTest
 
   test "should not update board if not authorized" do
     sign_out @user
-    patch board_url(@board), params: { board: { name: 'Updated Board' } }
+    patch board_url(@board), params: { board: { name: "Updated Board" } }
     assert_redirected_to new_user_session_url
   end
 
   test "should not destroy board if not authorized" do
     sign_out @user
-    assert_no_difference('Board.count') do
+    assert_no_difference("Board.count") do
       delete board_url(@board)
     end
 
@@ -103,8 +107,8 @@ class BoardsControllerTest < ActionDispatch::IntegrationTest
 
   # Additional tests
   test "should set default status to active" do
-    post boards_url, params: { board: { name: 'New Board' } }
-    assert_equal 'active', Board.last.status
+    post boards_url, params: { board: { name: "New Board" } }
+    assert_equal "active", Board.last.status
   end
 
   test "should not create board with duplicate name for the same creator" do
@@ -115,8 +119,8 @@ class BoardsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should not create board without a name" do
-    assert_no_difference('Board.count') do
-      post boards_url, params: { board: { name: '' } }
+    assert_no_difference("Board.count") do
+      post boards_url, params: { board: { name: "" } }
     end
 
     assert_response :unprocessable_entity

@@ -1,89 +1,63 @@
 class BoardsController < ApplicationController
-  layout 'dashboard'
+  layout "dashboard"
 
   before_action :set_board, only: %i[show edit update destroy]
-  before_action :authorize_board, only: %i[show edit update destroy]
+  before_action :initialize_board, only: %i[new create]
 
   def index
-    authorize Board
-
     @boards = Board.all
 
-    render Boards::List.new(boards: @boards)
+    authorize @boards
   end
 
   def show
-    authorize @board
-
-    render Boards::Show.new(board: @board)
   end
 
   def new
-    authorize Board
-
-    @board = Board.new
-
-    render Boards::New.new(board: @board)
   end
 
   def edit
-    authorize @board
-
-    render Boards::New.new(board: @board)
   end
 
   def create
-    authorize Board
-
-    @board = Board.new(**board_params, creator: current_user)
-
-    respond_to do |format|
-      if @board.save
-        format.html { redirect_to @board, notice: "Board was successfully created." }
-        format.json { render :show, status: :created, location: @board }
-      else
-        format.html { render Boards::New.new(board: @board), status: :unprocessable_entity }
-        format.json { render json: @board.errors, status: :unprocessable_entity }
-      end
+    if @board.save
+      redirect_to @board, notice: "Board was successfully created."
+    else
+      render :new, status: :unprocessable_entity
     end
   end
 
   def update
-    authorize @board
-
-    respond_to do |format|
-      if @board.update(board_params)
-        format.html { redirect_to @board, notice: "Board was successfully updated." }
-        format.json { render :show, status: :ok, location: @board }
-      else
-        format.html { render Boards::New.new(board: @board), status: :unprocessable_entity }
-        format.json { render json: @board.errors, status: :unprocessable_entity }
-      end
+    if @board.update(board_params)
+      redirect_to @board, notice: "Board was successfully updated."
+    else
+      render :edit, status: :unprocessable_entity
     end
   end
 
   def destroy
-    authorize @board
-
     @board.destroy!
 
-    respond_to do |format|
-      format.html { redirect_to boards_path, status: :see_other, notice: "Board was successfully destroyed." }
-      format.json { head :no_content }
-    end
+    redirect_to boards_path, status: :see_other, notice: "Board was successfully destroyed."
   end
 
   private
 
   def set_board
     @board = Board.find(params[:id])
+
+    authorize @board
   end
 
-  def authorize_board
+  def initialize_board
+    @board = Board.new(creator: current_user, **board_params)
+
     authorize @board
   end
 
   def board_params
+    return {} unless params[:board].present?
+
     params.require(:board).permit(:name)
   end
 end

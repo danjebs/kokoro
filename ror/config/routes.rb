@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   root "rails/health#show"
 
   resources :boards
-  # other routes...
+  resources :tasks
 
   devise_for :users,
     skip: [:sessions],
