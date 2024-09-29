@@ -28,17 +28,27 @@ class TasksController < ApplicationController
   end
 
   def update
-    if @task.update(task_params)
-      redirect_to @task, notice: "Task was successfully updated."
-    else
-      render :edit, status: :unprocessable_entity
+    position = task_params[:position].present? ? task_params[:position].to_i : nil
+
+    respond_to do |format|
+      if @task.update(task_params)
+        @task.insert_at(position) if position
+
+        format.html { redirect_to board_url(@task.board), notice: "Task was successfully updated." }
+        format.json { render json: @task, status: :ok, location: @task }
+      else
+        format.html { render render :edit, status: :unprocessable_entity }
+        format.json { render json: @task.errors, status: :unprocessable_entity }
+      end
     end
   end
 
   def destroy
+    board = @task.board
+
     @task.destroy
 
-    redirect_to tasks_url, notice: "Task was successfully destroyed."
+    redirect_to board, notice: "Task was successfully destroyed."
   end
 
   private
@@ -64,6 +74,6 @@ class TasksController < ApplicationController
     def task_params
       return {} unless params[:task].present?
 
-      params.require(:task).permit(:title, :status, :board_id, :task_status_id, :assignee_id)
+      params.require(:task).permit(:title, :task_status_id, :position, :board_id, :assignee_id)
     end
 end

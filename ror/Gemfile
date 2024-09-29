@@ -24,6 +24,7 @@ gem "tailwindcss-rails"
 gem "view_component"
 gem "slim"
 gem "slim-rails"
+gem "requestjs-rails"
 
 # api stuff
 gem "jbuilder"

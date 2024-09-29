@@ -1,27 +1,58 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-task_to_do:
-  title: Task One
+task_to_do_1:
+  title: "Task To Do"
+  board: one
+  task_status: to_do
+  creator: bean
+  assignee: bean
   position: 1
-  task_status: :to_do
-  creator: :bean
-  assignee: :bean
-  board: :one
 
-task_doing:
-  title: Task Two
+task_to_do_2:
+  title: "Task To Do 2"
+  board: one
+  task_status: to_do
+  creator: bean
+  assignee: bean
   position: 2
-  task_status: :doing
-  creator: :bean
-  assignee: :bundy
-  board: :one
 
-
-task_done:
-  title: Task Three
+task_to_do_3:
+  title: "Task To Do 3"
+  board: one
+  task_status: to_do
+  creator: bean
+  assignee: bean
   position: 3
-  task_status: :done
-  creator: :bean
-  assignee: :bean
-  board: :one
+
+task_doing_1:
+  title: "Task Doing"
+  board: one
+  task_status: doing
+  creator: bean
+  assignee: bean
+  position: 1
+
+task_doing_2:
+  title: "Task Doing 2"
+  board: one
+  task_status: doing
+  creator: bean
+  assignee: bean
+  position: 2
+
+task_done_1:
+  title: "Task Done"
+  board: one
+  task_status: done
+  creator: bean
+  assignee: bean
+  position: 1
+
+task_done_2:
+  title: "Task Done 2"
+  board: one
+  task_status: done
+  creator: bean
+  assignee: bean
+  position: 2
 
