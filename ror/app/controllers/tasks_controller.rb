@@ -5,7 +5,7 @@ class TasksController < ApplicationController
   before_action :initialize_task, only: %i[new create]
 
   def index
-    @tasks = Task.all
+    @tasks = Task.accessible_by(current_user)
 
     authorize @tasks
   end

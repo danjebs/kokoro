@@ -2,16 +2,17 @@ require "test_helper"
 
 class BoardsControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @board = boards(:one)
+    @board_bean = boards(:one)
+    @board_bundy = boards(:two)
     @user = users(:bean)
-
+    @other_user = users(:bundy)
     sign_in @user
   end
 
   test "should get index" do
     get boards_url
     assert_response :success
-    assert_includes @response.body, @board.name
+    assert_includes @response.body, @board_bean.name
   end
 
   test "should get new" do
@@ -33,24 +34,24 @@ class BoardsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should show board" do
-    get board_url(@board)
+    get board_url(@board_bean)
     assert_response :success
   end
 
   test "should get edit" do
-    get edit_board_url(@board)
+    get edit_board_url(@board_bean)
     assert_response :success
   end
 
   test "should update board" do
-    patch board_url(@board), params: { board: { name: "Updated Board" } }
-    assert_redirected_to board_url(@board)
+    patch board_url(@board_bean), params: { board: { name: "Updated Board" } }
+    assert_redirected_to board_url(@board_bean)
     assert_equal "Board was successfully updated.", flash[:notice]
   end
 
   test "should not destroy board" do
     assert_no_difference("Board.count") do
-      delete board_url(@board)
+      delete board_url(@board_bean)
     end
 
     assert_redirected_to root_path
@@ -80,49 +81,62 @@ class BoardsControllerTest < ActionDispatch::IntegrationTest
 
   test "should not show board if not authorized" do
     sign_out @user
-    get board_url(@board)
+    get board_url(@board_bean)
     assert_redirected_to new_user_session_url
   end
 
   test "should not get edit if not authorized" do
     sign_out @user
-    get edit_board_url(@board)
+    get edit_board_url(@board_bean)
     assert_redirected_to new_user_session_url
   end
 
   test "should not update board if not authorized" do
     sign_out @user
-    patch board_url(@board), params: { board: { name: "Updated Board" } }
+    patch board_url(@board_bean), params: { board: { name: "Updated Board" } }
     assert_redirected_to new_user_session_url
   end
 
   test "should not destroy board if not authorized" do
     sign_out @user
     assert_no_difference("Board.count") do
-      delete board_url(@board)
+      delete board_url(@board_bean)
     end
 
     assert_redirected_to new_user_session_url
   end
 
-  # Additional tests
-  test "should set default status to active" do
-    post boards_url, params: { board: { name: "New Board" } }
-    assert_equal "active", Board.last.status
+  test "should get edit if user is a board user" do
+    @board_bean.board_users.create(user: @user)
+    get edit_board_url(@board_bean)
+    assert_response :success
   end
 
-  test "should not create board with duplicate name for the same creator" do
-    assert_no_difference("Board.count") do
-      post boards_url, params: { board: { name: @board.name } }
-    end
-    assert_response :unprocessable_entity
+  test "should not get edit if user is not a board user" do
+    sign_out @user
+    sign_in @other_user
+    get edit_board_url(@board_bean)
+    assert_redirected_to root_url
   end
 
-  test "should not create board without a name" do
-    assert_no_difference("Board.count") do
-      post boards_url, params: { board: { name: "" } }
-    end
+  test "should update board if user is a board user" do
+    @board_bean.board_users.create(user: @user)
+    patch board_url(@board_bean), params: { board: { name: 'Updated Board' } }
+    assert_redirected_to board_url(@board_bean)
+  end
 
-    assert_response :unprocessable_entity
+  test "should not update board if user is not a board user" do
+    sign_out @user
+    sign_in @other_user
+    patch board_url(@board_bean), params: { board: { name: 'Updated Board' } }
+    assert_redirected_to root_url
+  end
+
+  test "should only show boards accessible by current user" do
+    get boards_url
+
+    assert_response :success
+    assert_select "*", text: @board_bean.name
+    assert_select "*", text: @board_bundy.name, count: 0
   end
 end

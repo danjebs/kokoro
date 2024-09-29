@@ -5,12 +5,15 @@ class BoardsController < ApplicationController
   before_action :initialize_board, only: %i[new create]
 
   def index
-    @boards = Board.all
+    @boards = Board.accessible_by(current_user)
 
     authorize @boards
   end
 
   def show
+    @tasks_by_status = @board.task_statuses.ordered.map do |task_status|
+      [task_status, task_status.tasks.ordered.accessible_by(current_user)]
+    end
   end
 
   def new

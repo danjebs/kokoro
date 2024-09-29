@@ -56,3 +56,11 @@ task_done_2:
   assignee: bean
   position: 2
 
+task_no_access:
+  title: "Task No Access"
+  board: two
+  task_status: board_2_to_do
+  creator: bundy
+  assignee: bundy
+  position: 1
+

@@ -4,7 +4,7 @@ class TaskPolicy < ApplicationPolicy
   end
 
   def show?
-    user.present? && record.board.creator == user
+    user.present? && Task.accessible_by(user).exists?(record.id)
   end
 
   def new?
@@ -12,11 +12,11 @@ class TaskPolicy < ApplicationPolicy
   end
 
   def edit?
-    user.present? && record.board.creator == user
+    user.present? && Task.accessible_by(user).exists?(record.id)
   end
 
   def create?
-    new?
+    user.present? && record.board.users.include?(user)
   end
 
   def update?
@@ -29,7 +29,7 @@ class TaskPolicy < ApplicationPolicy
 
   class Scope < Scope
     def resolve
-      scope.all
+      scope.accessible_by(user)
     end
   end
 end

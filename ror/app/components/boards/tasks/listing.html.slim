@@ -1,5 +1,6 @@
 = link_to task do
   div class="p-3 rounded-xl bg-white dark:bg-green-950 text-gray-700 dark:text-gray-300"
-    div class=""
+    div
       = task.title
-    p = task.status_label
+    p class="text-sm text-gray-400"
+      = task.assignee_name

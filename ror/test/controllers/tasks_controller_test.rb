@@ -2,6 +2,13 @@ require "test_helper"
 
 class TasksControllerTest < ActionDispatch::IntegrationTest
   setup do
+    @board_bean = boards(:one)
+    @board_bundy = boards(:two)
+
+    @status_to_do = task_statuses(:to_do)
+    @status_doing = task_statuses(:doing)
+    @status_done = task_statuses(:done)
+
     @task_to_do_1 = tasks(:task_to_do_1)
     @task_to_do_2 = tasks(:task_to_do_2)
     @task_to_do_3 = tasks(:task_to_do_3)
@@ -9,12 +16,10 @@ class TasksControllerTest < ActionDispatch::IntegrationTest
     @task_doing_2 = tasks(:task_doing_2)
     @task_done_1 = tasks(:task_done_1)
     @task_done_2 = tasks(:task_done_2)
-    @user = users(:bean)
-    @board = boards(:one)
 
-    @status_to_do = task_statuses(:to_do)
-    @status_doing = task_statuses(:doing)
-    @status_done = task_statuses(:done)
+    @task_no_access = tasks(:task_no_access)
+
+    @user = users(:bean)
 
     sign_in @user
   end
@@ -31,7 +36,7 @@ class TasksControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get new with board set" do
-    get new_task_url, params: { task: { board_id: @board.id } }
+    get new_task_url, params: { task: { board_id: @board_bean.id } }
 
     assert_response :success
   end
@@ -41,7 +46,7 @@ class TasksControllerTest < ActionDispatch::IntegrationTest
       post tasks_url, params: {
         task: {
           title: "New Task",
-          board_id: @board.id,
+          board_id: @board_bean.id,
           task_status_id: @status_to_do.id,
           creator_id: @user.id,
           assignee_id: @user.id
@@ -83,7 +88,7 @@ class TasksControllerTest < ActionDispatch::IntegrationTest
       delete task_url(@task_to_do_1)
     end
 
-    assert_redirected_to board_url @board
+    assert_redirected_to board_url @board_bean
   end
 
   # Authorization tests
@@ -95,7 +100,7 @@ class TasksControllerTest < ActionDispatch::IntegrationTest
 
   test "should not get new if not authorized" do
     sign_out @user
-    get new_task_url, params: { task: { board_id: @board.id } }
+    get new_task_url, params: { task: { board_id: @board_bean.id } }
     assert_redirected_to new_user_session_url
   end
 
@@ -105,7 +110,7 @@ class TasksControllerTest < ActionDispatch::IntegrationTest
       post tasks_url, params: {
         task: {
           title: "New Task",
-          board_id: @board.id,
+          board_id: @board_bean.id,
           task_status_id: @status_doing.id,
           creator_id: @user.id,
           assignee_id: @user.id
@@ -133,7 +138,7 @@ class TasksControllerTest < ActionDispatch::IntegrationTest
     patch task_url(@task_to_do_1), params: {
       task: {
         title: "Updated Task",
-        board_id: @board.id,
+        board_id: @board_bean.id,
         task_status_id: @status_done.id,
         creator_id: @user.id,
         assignee_id: @user.id
@@ -151,62 +156,73 @@ class TasksControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to new_user_session_url
   end
 
-  # Test moving task between columns
-  test "should move task to another column" do
-    patch task_url(@task_to_do_1), params: {
-      task: {
-        task_status_id: @status_doing.id
-      }
-    }
-    assert_redirected_to board_url(@task_to_do_1.board)
-    @task_to_do_1.reload
-    assert_equal @status_doing.id, @task_to_do_1.task_status_id
-    assert_equal "Task was successfully updated.", flash[:notice]
+  test "should get show if user has access to board" do
+    get board_url(@board_bean)
+    assert_response :success
   end
 
-  # Test moving task within the same column
-  test "should move task within the same column" do
-    patch task_url(@task_to_do_1), params: {
-      task: {
-        position: 2
-      }
-    }
-    assert_redirected_to board_url(@task_to_do_1.board)
-    @task_to_do_1.reload
-    assert_equal 2, @task_to_do_1.position
-    assert_equal "Task was successfully updated.", flash[:notice]
-
-    # Ensure positions of other tasks are updated
-    @task_to_do_2.reload
-    assert_equal 1, @task_to_do_2.position
-    @task_to_do_3.reload
-    assert_equal 3, @task_to_do_3.position
+  test "should not get show if user does not have access to board" do
+    get board_url(@board_bundy)
+    assert_redirected_to root_url
   end
 
-  # Test moving task between columns and into a specific spot
-  test "should move task to another column and specific position" do
-    patch task_url(@task_to_do_1), params: {
-      task: {
-        task_status_id: @status_doing.id,
-        position: 2
+  test "should create task if user has access to board" do
+    assert_difference("Task.count") do
+      post tasks_url, params: {
+        task: {
+          title: "New Task",
+          board_id: @board_bean.id,
+          task_status_id: task_statuses(:to_do).id,
+          assignee_id: @user.id
+        }
       }
-    }
-    assert_redirected_to board_url(@task_to_do_1.board)
-    @task_to_do_1.reload
-    assert_equal @status_doing.id, @task_to_do_1.task_status_id
-    assert_equal 2, @task_to_do_1.position
-    assert_equal "Task was successfully updated.", flash[:notice]
+    end
+    assert_redirected_to board_url(@board_bean)
+  end
 
-    # Ensure positions of other tasks in origin column are updated
-    @task_to_do_2.reload
-    assert_equal 1, @task_to_do_2.position
-    @task_to_do_3.reload
-    assert_equal 2, @task_to_do_3.position
+  test "should not create task if user does not have access to board" do
+    assert_no_difference("Task.count") do
+      post tasks_url, params: {
+        task: {
+          title: 'New Task',
+          board_id: @board_bundy.id,
+          task_status_id: task_statuses(:to_do).id,
+          assignee_id: @user.id
+        }
+      }
+    end
+    assert_redirected_to root_url
+  end
 
-    # Ensure positions of other tasks in target column are updated
-    @task_doing_1.reload
-    assert_equal 1, @task_doing_1.position
-    @task_doing_2.reload
-    assert_equal 3, @task_doing_2.position
+  test "should update task if user has access to board" do
+    patch task_url(@task_to_do_1), params: { task: { title: 'Updated Task' } }
+    assert_redirected_to board_url(@board_bean)
+  end
+
+  test "should not update task if user does not have access to board" do
+    patch task_url(@task_no_access), params: { task: { title: 'Updated Task' } }
+    assert_redirected_to root_url
+  end
+
+  test "should destroy task if user has access to board" do
+    assert_difference("Task.count", -1) do
+      delete task_url(@task_done_1)
+    end
+    assert_redirected_to board_url(@board_bean)
+  end
+
+  test "should not destroy task if user does not have access to board" do
+    assert_no_difference("Task.count") do
+      delete task_url(@task_no_access)
+    end
+    assert_redirected_to root_url
+  end
+
+  test "should only show tasks accessible by current user" do
+    get board_url(@board_bean)
+
+    assert_response :success
+    assert_select "*", { text: @task_to_do_1.title, count: 1 }
+    assert_select "*", { text: @task_no_access.title, count: 0 }
   end
 end

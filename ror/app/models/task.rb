@@ -8,7 +8,16 @@ class Task < ApplicationRecord
 
   before_save :set_position, if: :new_record?
 
+  scope :accessible_by, ->(user) {
+    return nil if user.nil?
+
+    joins(board: :board_users).where(board_users: { user_id: user.id })
+  }
   scope :ordered, -> { order(position: :asc) }
+
+  def assignee_name
+    assignee.present? ? assignee.name : "Unassigned"
+  end
 
   def status_label
     task_status&.name

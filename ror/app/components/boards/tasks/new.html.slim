@@ -24,7 +24,10 @@ div class="w-full h-full flex justify-center items-center"
 
       div class="field"
         = form.label :assignee_id
-        = form.text_field :assignee_id, value: @task.assignee_id
+        = form.select :assignee_id,
+            options_from_collection_for_select(@task.board.users, :id, :name, @task.assignee_id),
+            { include_blank: true },
+            class: "mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
 
       div class="field"
         = form.hidden_field :board_id, value: @task.board_id

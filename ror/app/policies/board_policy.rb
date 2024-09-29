@@ -4,11 +4,11 @@ class BoardPolicy < ApplicationPolicy
   end
 
   def show?
-    user.present? && record.creator == user
+    user.present? && Board.accessible_by(user).exists?(record.id)
   end
 
   def new?
-    user.present? && record.creator == user
+    user.present?
   end
 
   def edit?
@@ -29,7 +29,7 @@ class BoardPolicy < ApplicationPolicy
 
   class Scope < Scope
     def resolve
-      scope.all
+      scope.accessible_by(user)
     end
   end
 end

@@ -17,3 +17,21 @@ done:
   position: 3
   state: :archived
   board: one
+
+board_2_to_do:
+  name: "To Do"
+  position: 1
+  state: :inactive
+  board: two
+
+board_2_doing:
+  name: "Doing"
+  position: 2
+  state: :active
+  board: two
+
+board_2_done:
+  name: "Done"
+  position: 3
+  state: :archived
+  board: two
