@@ -107,7 +107,7 @@ class BoardsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get edit if user is a board user" do
-    @board_bean.board_users.create(user: @user)
+    @board_bean.collaborators.create(user: @user)
     get edit_board_url(@board_bean)
     assert_response :success
   end
@@ -120,7 +120,7 @@ class BoardsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update board if user is a board user" do
-    @board_bean.board_users.create(user: @user)
+    @board_bean.collaborators.create(user: @user)
     patch board_url(@board_bean), params: { board: { name: 'Updated Board' } }
     assert_redirected_to board_url(@board_bean)
   end

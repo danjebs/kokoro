@@ -1,6 +1,6 @@
 class User < ApplicationRecord
-  has_many :board_users, class_name: "BoardUser"
-  has_many :boards, through: :board_users
+  has_many :collaborators
+  has_many :boards, through: :collaborators
 
   validates :name, presence: true
 

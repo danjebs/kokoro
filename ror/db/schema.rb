@@ -17,16 +17,19 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_29_044708) do
   # Custom types defined in this database.
   # Note that some types may not work with other database engines. Be careful if changing database.
   create_enum "board_status", ["active", "archived"]
+  create_enum "collaboration_status", ["open", "accepted", "declined"]
+  create_enum "invitation_status", ["open", "accepted", "declined"]
   create_enum "task_status_state", ["inactive", "active", "archived"]
   create_enum "user_role", ["user", "admin"]
 
-  create_table "board_users", force: :cascade do |t|
+  create_table "board_invitations", force: :cascade do |t|
     t.bigint "board_id", null: false
     t.bigint "user_id", null: false
+    t.string "email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["board_id"], name: "index_board_users_on_board_id"
-    t.index ["user_id"], name: "index_board_users_on_user_id"
+    t.index ["board_id"], name: "index_board_invitations_on_board_id"
+    t.index ["user_id"], name: "index_board_invitations_on_user_id"
   end
 
   create_table "boards", force: :cascade do |t|
@@ -37,6 +40,19 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_29_044708) do
     t.datetime "updated_at", null: false
     t.enum "status", enum_type: "board_status"
     t.index ["creator_id"], name: "index_boards_on_creator_id"
+  end
+
+  create_table "collaborators", force: :cascade do |t|
+    t.string "collaborateable_type", null: false
+    t.bigint "collaborateable_id", null: false
+    t.bigint "user_id", null: false
+    t.bigint "inviter_id", null: false
+    t.string "invitation_email"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["collaborateable_type", "collaborateable_id"], name: "index_collaborators_on_collaborateable"
+    t.index ["inviter_id"], name: "index_collaborators_on_inviter_id"
+    t.index ["user_id"], name: "index_collaborators_on_user_id"
   end
 
   create_table "families", force: :cascade do |t|
@@ -88,9 +104,11 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_29_044708) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "board_users", "boards"
-  add_foreign_key "board_users", "users"
+  add_foreign_key "board_invitations", "boards"
+  add_foreign_key "board_invitations", "users"
   add_foreign_key "boards", "users", column: "creator_id"
+  add_foreign_key "collaborators", "users"
+  add_foreign_key "collaborators", "users", column: "inviter_id"
   add_foreign_key "task_statuses", "boards"
   add_foreign_key "tasks", "boards"
   add_foreign_key "tasks", "task_statuses"

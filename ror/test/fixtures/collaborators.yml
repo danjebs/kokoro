@@ -1,0 +1,14 @@
+board_one_bean:
+  collaborateable: one (Board)
+  user: bean
+  inviter: bean
+
+board_one_bundy:
+  collaborateable: one (Board)
+  user: bundy
+  inviter: bean
+
+board_two_bundy:
+  collaborateable: two (Board)
+  user: bundy
+  inviter: bundy

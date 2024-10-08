@@ -1,6 +1,6 @@
 require "test_helper"
 
-class BoardUserTest < ActiveSupport::TestCase
+class CollaboratorTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

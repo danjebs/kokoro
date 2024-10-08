@@ -11,7 +11,7 @@ class Task < ApplicationRecord
   scope :accessible_by, ->(user) {
     return nil if user.nil?
 
-    joins(board: :board_users).where(board_users: { user_id: user.id })
+    joins(board: :collaborators).where(collaborators: { user_id: user.id })
   }
   scope :ordered, -> { order(position: :asc) }
 
