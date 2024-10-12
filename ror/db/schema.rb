@@ -10,27 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_09_29_044708) do
+ActiveRecord::Schema[7.1].define(version: 2024_10_08_023502) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   # Custom types defined in this database.
   # Note that some types may not work with other database engines. Be careful if changing database.
   create_enum "board_status", ["active", "archived"]
-  create_enum "collaboration_status", ["open", "accepted", "declined"]
-  create_enum "invitation_status", ["open", "accepted", "declined"]
+  create_enum "invitation_status", ["invited", "accepted", "declined"]
   create_enum "task_status_state", ["inactive", "active", "archived"]
   create_enum "user_role", ["user", "admin"]
-
-  create_table "board_invitations", force: :cascade do |t|
-    t.bigint "board_id", null: false
-    t.bigint "user_id", null: false
-    t.string "email"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["board_id"], name: "index_board_invitations_on_board_id"
-    t.index ["user_id"], name: "index_board_invitations_on_user_id"
-  end
 
   create_table "boards", force: :cascade do |t|
     t.string "name"
@@ -46,12 +35,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_29_044708) do
     t.string "collaborateable_type", null: false
     t.bigint "collaborateable_id", null: false
     t.bigint "user_id", null: false
-    t.bigint "inviter_id", null: false
-    t.string "invitation_email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["collaborateable_type", "collaborateable_id"], name: "index_collaborators_on_collaborateable"
-    t.index ["inviter_id"], name: "index_collaborators_on_inviter_id"
     t.index ["user_id"], name: "index_collaborators_on_user_id"
   end
 
@@ -61,6 +47,20 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_29_044708) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["slug"], name: "index_families_on_slug", unique: true
+  end
+
+  create_table "invitations", force: :cascade do |t|
+    t.string "collaborateable_type", null: false
+    t.bigint "collaborateable_id", null: false
+    t.string "email"
+    t.bigint "invitee_id", null: false
+    t.bigint "inviter_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.enum "status", enum_type: "invitation_status"
+    t.index ["collaborateable_type", "collaborateable_id"], name: "index_invitations_on_collaborateable"
+    t.index ["invitee_id"], name: "index_invitations_on_invitee_id"
+    t.index ["inviter_id"], name: "index_invitations_on_inviter_id"
   end
 
   create_table "task_statuses", force: :cascade do |t|
@@ -104,11 +104,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_29_044708) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "board_invitations", "boards"
-  add_foreign_key "board_invitations", "users"
   add_foreign_key "boards", "users", column: "creator_id"
   add_foreign_key "collaborators", "users"
-  add_foreign_key "collaborators", "users", column: "inviter_id"
+  add_foreign_key "invitations", "users", column: "invitee_id"
+  add_foreign_key "invitations", "users", column: "inviter_id"
   add_foreign_key "task_statuses", "boards"
   add_foreign_key "tasks", "boards"
   add_foreign_key "tasks", "task_statuses"

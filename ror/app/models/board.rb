@@ -33,6 +33,6 @@ class Board < ApplicationRecord
   end
 
   def add_creator_as_collaborator
-    collaborators.create(user: creator, inviter: creator)
+    collaborators.create(user: creator)
   end
 end

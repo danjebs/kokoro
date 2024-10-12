@@ -1,0 +1,5 @@
+one:
+  email:
+  inviter: bean
+  invitee: bundy
+  collaborateable: one (Board)
