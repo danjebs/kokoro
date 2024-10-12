@@ -52,13 +52,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_08_023502) do
   create_table "invitations", force: :cascade do |t|
     t.string "collaborateable_type", null: false
     t.bigint "collaborateable_id", null: false
-    t.string "email"
-    t.bigint "invitee_id", null: false
+    t.string "email", null: false
+    t.bigint "invitee_id"
     t.bigint "inviter_id", null: false
+    t.bigint "collaborator_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.enum "status", enum_type: "invitation_status"
     t.index ["collaborateable_type", "collaborateable_id"], name: "index_invitations_on_collaborateable"
+    t.index ["collaborator_id"], name: "index_invitations_on_collaborator_id"
     t.index ["invitee_id"], name: "index_invitations_on_invitee_id"
     t.index ["inviter_id"], name: "index_invitations_on_inviter_id"
   end
