@@ -14,7 +14,7 @@ div class="w-full h-full flex justify-center items-center"
 
       div class="field"
         = form.label :name
-        = form.text_field :name, class: "mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+        = form.text_field :name, autofocus: true, class: "mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
 
       div class="actions"
         = form.submit class: "btn w-full"
