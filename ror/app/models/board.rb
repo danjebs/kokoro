@@ -1,4 +1,6 @@
 class Board < ApplicationRecord
+  include Collaborateable
+
   belongs_to :creator, class_name: :User
 
   has_many :task_statuses, dependent: :destroy
@@ -33,6 +35,6 @@ class Board < ApplicationRecord
   end
 
   def add_creator_as_collaborator
-    collaborators.create(user: creator)
+    collaborators.create!(user: creator)
   end
 end

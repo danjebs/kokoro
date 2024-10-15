@@ -1,5 +1,34 @@
-one:
-  email:
+bundy_invites_bean_to_board_two:
+  email: bean@yopmail.com
+  inviter: bundy
+  invitee: bean
+  collaborateable: two (Board)
+  status: pending
+
+status_pending:
+  email: dobby@yopmail.com
+  inviter: bean
+  invitee: dobby
+  collaborateable: one (Board)
+  status: pending
+
+status_accepted:
+  email: bundy@yopmail.com
   inviter: bean
   invitee: bundy
   collaborateable: one (Board)
+  status: accepted
+
+status_declined:
+  email: boogi@yopmail.com
+  inviter: bean
+  invitee: boogi
+  collaborateable: one (Board)
+  status: declined
+
+nonexistent_invitee:
+  email: pinkmama@yopmail.com
+  inviter: bean
+  invitee:
+  collaborateable: one (Board)
+  status: pending

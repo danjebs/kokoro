@@ -54,7 +54,7 @@ class BoardsControllerTest < ActionDispatch::IntegrationTest
       delete board_url(@board_bean)
     end
 
-    assert_redirected_to root_path
+    assert_response :forbidden
   end
 
   # Authorization tests
@@ -116,20 +116,21 @@ class BoardsControllerTest < ActionDispatch::IntegrationTest
     sign_out @user
     sign_in @other_user
     get edit_board_url(@board_bean)
-    assert_redirected_to root_url
+    assert_response :forbidden
   end
 
   test "should update board if user is a board user" do
     @board_bean.collaborators.create(user: @user)
     patch board_url(@board_bean), params: { board: { name: 'Updated Board' } }
-    assert_redirected_to board_url(@board_bean)
+    assert_redirected_to @board_bean
   end
 
   test "should not update board if user is not a board user" do
     sign_out @user
     sign_in @other_user
     patch board_url(@board_bean), params: { board: { name: 'Updated Board' } }
-    assert_redirected_to root_url
+    # assert_redirected_to root_url
+    assert_response :forbidden
   end
 
   test "should only show boards accessible by current user" do

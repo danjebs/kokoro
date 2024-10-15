@@ -1,0 +1,9 @@
+p Hello,
+
+p #{@inviter.name} invited you to collaborate on their #{@collaborateable.class.name.downcase} "#{@collaborateable.name}". You can accept or decline the invitation by #{link_to "clicking here", @invitation}.
+
+p To view all your invitations, #{link_to "click here", @invitations_url}.
+
+p If you feel this was sent accidentally, please ignore it.
+
+p Peace, <br>Kokoro

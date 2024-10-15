@@ -17,7 +17,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_08_023502) do
   # Custom types defined in this database.
   # Note that some types may not work with other database engines. Be careful if changing database.
   create_enum "board_status", ["active", "archived"]
-  create_enum "invitation_status", ["invited", "accepted", "declined"]
+  create_enum "invitation_status", ["pending", "accepted", "declined"]
   create_enum "task_status_state", ["inactive", "active", "archived"]
   create_enum "user_role", ["user", "admin"]
 
@@ -59,6 +59,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_08_023502) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.enum "status", enum_type: "invitation_status"
+    t.index ["collaborateable_type", "collaborateable_id", "email"], name: "index_invitations_on_collaborateable_and_email"
     t.index ["collaborateable_type", "collaborateable_id"], name: "index_invitations_on_collaborateable"
     t.index ["collaborator_id"], name: "index_invitations_on_collaborator_id"
     t.index ["invitee_id"], name: "index_invitations_on_invitee_id"
@@ -108,6 +109,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_08_023502) do
 
   add_foreign_key "boards", "users", column: "creator_id"
   add_foreign_key "collaborators", "users"
+  add_foreign_key "invitations", "collaborators"
   add_foreign_key "invitations", "users", column: "invitee_id"
   add_foreign_key "invitations", "users", column: "inviter_id"
   add_foreign_key "task_statuses", "boards"

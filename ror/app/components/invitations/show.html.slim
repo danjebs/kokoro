@@ -1,0 +1,5 @@
+div class="flex items-center justify-between"
+  h1
+    = "You're invited to collaborate on #{invitation.collaborateable.name}"
+div class="mt-6"
+  = render Invitations::Listing.new(invitation: invitation)

@@ -163,7 +163,7 @@ class TasksControllerTest < ActionDispatch::IntegrationTest
 
   test "should not get show if user does not have access to board" do
     get board_url(@board_bundy)
-    assert_redirected_to root_url
+    assert_response :forbidden
   end
 
   test "should create task if user has access to board" do
@@ -191,7 +191,7 @@ class TasksControllerTest < ActionDispatch::IntegrationTest
         }
       }
     end
-    assert_redirected_to root_url
+    assert_response :forbidden
   end
 
   test "should update task if user has access to board" do
@@ -201,7 +201,7 @@ class TasksControllerTest < ActionDispatch::IntegrationTest
 
   test "should not update task if user does not have access to board" do
     patch task_url(@task_no_access), params: { task: { title: 'Updated Task' } }
-    assert_redirected_to root_url
+    assert_response :forbidden
   end
 
   test "should destroy task if user has access to board" do
@@ -215,7 +215,7 @@ class TasksControllerTest < ActionDispatch::IntegrationTest
     assert_no_difference("Task.count") do
       delete task_url(@task_no_access)
     end
-    assert_redirected_to root_url
+    assert_response :forbidden
   end
 
   test "should only show tasks accessible by current user" do

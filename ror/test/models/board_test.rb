@@ -11,6 +11,11 @@ class BoardTest < ActiveSupport::TestCase
     assert_equal "active", board.status
   end
 
+  test "should add creator as collaborator after board creation" do
+    board = Board.create(name: "New Board", creator: @user)
+    assert board.collaborators.exists?(user: @user), "Creator was not added as a collaborator"
+  end
+
   test "should not create board with duplicate name for the same creator" do
     duplicate_board = Board.new(name: @board.name, creator: @board.creator)
     assert_not duplicate_board.save
