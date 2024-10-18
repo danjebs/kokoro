@@ -5,9 +5,9 @@ class InvitationsController < ApplicationController
   before_action :initialize_invitation, only: %i[new create]
 
   def index
-    @invitations = Invitation.where(invitee: current_user)
-
-    authorize @invitations
+    @invitations = policy_scope(Invitation)
+      .where(invitee: current_user)
+      .order(status: :asc, created_at: :desc)
   end
 
   def show

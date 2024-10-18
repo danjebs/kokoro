@@ -76,4 +76,27 @@ class InvitationsControllerTest < ActionDispatch::IntegrationTest
     get invitation_url(@pending)
     assert_response :forbidden
   end
+
+  test "should show invitations" do
+    sign_in users(:bean)
+
+    get invitations_url
+    assert_response :success
+    assert_select "li[id^=listing_invitation_]", count: 1
+
+    get invitation_url(invitations(:bundy_invites_bean_to_board_two))
+    assert_response :success
+    assert_select "li[id^=listing_invitation_]", count: 1
+  end
+
+  test "should not show accepted invitations" do
+    sign_in users(:bundy)
+
+    get invitations_url
+    assert_response :success
+    assert_select "li[id^=listing_invitation_]", count: 0
+
+    get invitation_url(invitations(:status_accepted))
+    assert_response :forbidden
+  end
 end

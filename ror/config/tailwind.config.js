@@ -8,7 +8,8 @@ module.exports = {
     './app/components/**/*.html.{erb,slim}',
     './app/helpers/**/*.rb',
     './app/javascript/**/*.js',
-    './app/views/**/*.{erb,haml,html,slim}'
+    './app/views/**/*.{erb,haml,html,slim}',
+    './app/views/**/*.html.{erb,haml,html,slim}'
   ],
   theme: {
     extend: {
@@ -16,6 +17,9 @@ module.exports = {
         sans: ['Inter var', ...defaultTheme.fontFamily.sans],
       },
       colors: {
+        blue: colors.blue,
+        green: colors.lime,
+        red: colors.rose,
         yellow: colors.amber,
       },
     },

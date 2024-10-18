@@ -1,21 +1,21 @@
-li class="flex justify-between p-4 border-b border-gray-100 last-of-type:border-none"
+li id="#{dom_id(invitation, :listing)}" class="flex justify-between px-2 py-4 border-b border-gray-100 last-of-type:border-none"
   div class=""
     div class="font-semibold"
       = invitation.collaborateable.name
     div class="text-xs text-gray-500"
-      = "Invited #{time_ago_in_words(invitation.created_at)} by #{invitation.inviter.name}"
+      = "Invited #{time_ago_in_words(invitation.created_at)} ago by #{invitation.inviter.name}"
   - if invitation.status_is_pending? && helpers.current_user.email == invitation.email
-      div
+      div class="flex gap-2"
         = form_with model: invitation, method: :patch, local: true do |form|
           = form.hidden_field :status, value: :accepted
-          = form.submit "Accept", class: "block py-4 px-2 font-medium text-lg"
+          = form.submit "Accept", class: "btn-sm btn-green"
         = form_with model: invitation, method: :patch, local: true do |form|
           = form.hidden_field :status, value: :declined
-          = form.submit "Decline", class: "block py-4 px-2 font-medium text-lg"
+          = form.submit "Decline", class: "btn-sm btn-red"
   - elsif invitation.status_is_pending? && helpers.current_user == invitation.inviter
       div
         = form_with model: invitation, method: :delete, local: true do |form|
-          = form.submit "Delete", class: "block py-4 px-2 font-medium text-lg text-red-600"
+          = form.submit "Delete", class: "btn-sm btn-red"
   - else
     div class="capitalize"
       = invitation.status

@@ -2,5 +2,9 @@ div class="flex items-center justify-between"
   h1
     | My Invitations
 div class="mt-6"
-  ul
-    = render Invitations::Listing.with_collection(invitations)
+  - if invitations.exists?
+    ul
+      = render Invitations::Listing.with_collection(invitations)
+  - else
+    div
+      | You have no pending invitations

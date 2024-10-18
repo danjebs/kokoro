@@ -29,7 +29,7 @@ class InvitationPolicy < ApplicationPolicy
 
   class Scope < Scope
     def resolve
-      scope.accessible_by(user)
+      scope.accessible_by(user).status_is_pending
     end
   end
 end

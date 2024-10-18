@@ -5,7 +5,7 @@ class BoardsController < ApplicationController
   before_action :initialize_board, only: %i[new create]
 
   def index
-    @boards = Board.accessible_by(current_user)
+    @boards = policy_scope(Board).all
 
     authorize @boards
   end
