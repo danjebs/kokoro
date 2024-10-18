@@ -3,21 +3,19 @@ Rails.application.routes.draw do
 
   resources :boards
   resources :tasks
+  resources :invitations
 
   devise_for :users,
-    skip: [:sessions],
+    path: "auth",
+    path_names: {
+      sign_in: "login",
+      sign_out: "logout",
+      registration: "register",
+      sign_up: "signup"
+    },
     controllers: {
-      registrations: "users/registrations",
-      sessions: "users/sessions",
-      confirmations: "users/confirmations"
+      registrations: "users/registrations"
     }
-
-  devise_scope :user do
-    get "login", to: "devise/sessions#new", as: :new_user_session
-    post "login", to: "devise/sessions#create", as: :user_session
-    get "logout", to: "devise/sessions#destroy", as: :destroy_user_session
-    get "welcome", to: "users/confirmations#welcome"
-  end
 
   get "up" => "rails/health#show", as: :rails_health_check
 end
