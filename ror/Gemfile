@@ -26,6 +26,8 @@ gem "slim"
 gem "slim-rails"
 gem "requestjs-rails"
 
+gem "simple_form", "~> 5.3.0"
+
 # api stuff
 gem "jbuilder"
 

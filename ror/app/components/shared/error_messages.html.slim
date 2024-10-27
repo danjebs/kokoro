@@ -1,0 +1,8 @@
+- if resource.errors.any?
+  div class="text-red-600"
+    h2
+      = "#{pluralize(resource.errors.count, "error")} prohibited this #{resource.class.name.downcase} from being saved:"
+    ul
+      - resource.errors.each do |error|
+        li
+          = error.full_message

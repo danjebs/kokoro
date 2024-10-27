@@ -1,0 +1,39 @@
+- show_login = controller_name != "sessions"
+- show_signup = devise_mapping.registerable? && controller_name != "registrations"
+- show_forgot_password = devise_mapping.recoverable? && controller_name != "passwords" && controller_name != "registrations"
+- show_resend_confirmation = devise_mapping.confirmable? && controller_name != "confirmations"
+- show_resend_unlock = devise_mapping.lockable? && resource_class.unlock_strategy_enabled?(:email) && controller_name != "unlocks"
+
+- if show_login || show_signup || show_forgot_password || show_resend_confirmation || show_resend_unlock
+  div class="flex flex-col gap-3 border-t border-solid border-gray-200 mt-8 pt-6"
+    - if show_login
+      = link_to "Log in",
+          new_session_path(resource_name),
+          class: "block text-center text-gray-500 dark:text-gray-400 hover:text-blue-500 underline"
+
+    - if show_signup
+      = link_to "Sign up",
+          new_registration_path(resource_name),
+          class: "block text-center text-gray-500 dark:text-gray-400 hover:text-blue-500 underline"
+
+    - if show_forgot_password
+      = link_to "Forgot your password?",
+          new_password_path(resource_name),
+          class: "block text-center text-gray-500 dark:text-gray-400 hover:text-blue-500 underline"
+
+    - if show_resend_confirmation
+      = link_to "Didn't receive confirmation instructions?",
+          new_confirmation_path(resource_name),
+          class: "block text-center text-gray-500 dark:text-gray-400 hover:text-blue-500 underline"
+
+    - if show_resend_unlock
+      = link_to "Didn't receive unlock instructions?",
+          new_unlock_path(resource_name),
+          class: "block text-center text-gray-500 dark:text-gray-400 hover:text-blue-500 underline"
+
+    / - if devise_mapping.omniauthable?
+    /   - resource_class.omniauth_providers.each do |provider|
+    /     = button_to "Sign in with #{OmniAuth::Utils.camelize(provider)}",
+    /         omniauth_authorize_path(resource_name, provider),
+    /         data: { turbo: false },
+    /         class: "block"

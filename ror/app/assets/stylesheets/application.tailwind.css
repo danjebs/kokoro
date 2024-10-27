@@ -31,13 +31,51 @@
     @apply dark:bg-gray-500;
   }
 
-  textarea, input[type=text], select, trix-editor.trix-content {
-    @apply block shadow rounded-md outline-none p-3; /** caret-primary-500 ring-primary-500 */
+  textarea,
+  input[type=text],
+  input[type=email],
+  input[type=url],
+  input[type=tel],
+  input[type=password],
+  input[type=search],
+  input[type=number],
+  input[type=range],
+  select,
+  trix-editor.trix-content {
+    @apply block shadow rounded-md outline-none p-3 caret-blue-300 ring-blue-300 */
     @apply border-gray-200;
     @apply dark:bg-gray-700 dark:border-gray-400 dark:text-gray-300;
   }
 
-  .btn {
-    @apply px-4 py-3 text-white bg-yellow-400 rounded-lg font-semibold shadow-md hover:shadow-sm cursor-pointer;
+  input[type=checkbox] {
+    @apply w-4 h-4 rounded-sm appearance-none checked:bg-blue-300;
+  }
+
+  .btn-sm {
+    @apply px-2 py-2 rounded-md text-sm font-medium shadow-md hover:shadow-sm cursor-pointer;
+  }
+
+  .btn-md {
+    @apply px-3 py-3 rounded-md text-base font-semibold shadow-md hover:shadow-sm cursor-pointer;
+  }
+
+  .btn-lg {
+    @apply px-4 py-3 rounded-lg text-lg font-semibold shadow-md hover:shadow-sm cursor-pointer;
+  }
+
+  .btn-green {
+    @apply bg-green-500 text-white;
+  }
+
+  .btn-red {
+    @apply bg-red-400 text-white;
+  }
+
+  .btn-yellow {
+    @apply bg-yellow-400 text-white;
+  }
+
+  .text-gray-500 {
+    @apply dark:text-gray-400;
   }
 }

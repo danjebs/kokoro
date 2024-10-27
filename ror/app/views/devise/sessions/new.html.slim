@@ -1,0 +1,16 @@
+h1 class="text-center"
+  | Log In
+
+= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |form|
+  = render "devise/shared/error_messages", resource: resource
+
+  = form.input :email, autofocus: true, autocomplete: "email"
+
+  = form.input :password, autocomplete: "current-password"
+
+  - if devise_mapping.rememberable?
+    = form.input :remember_me, as: :boolean, label: "Remember me", class: "flex flex-row-reverse justify-start"
+
+  = form.button :submit, "Log in"
+
+= render "devise/shared/links"

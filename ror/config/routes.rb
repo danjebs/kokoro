@@ -10,8 +10,8 @@ Rails.application.routes.draw do
     path_names: {
       sign_in: "login",
       sign_out: "logout",
-      registration: "register",
-      sign_up: "signup"
+      confirmation: "verification",
+      sign_up: "signup",
     },
     controllers: {
       registrations: "users/registrations"

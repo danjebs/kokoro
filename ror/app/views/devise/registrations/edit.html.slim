@@ -1,0 +1,15 @@
+h2 class="text-center"
+  | Edit Registration
+
+= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |form|
+  = form.input :email, autofocus: true, autocomplete: "email"
+
+  = form.input :password, hint: "Leave blank if you don't want to change it", autocomplete: "new-password"
+
+  = form.input :password_confirmation, autocomplete: "new-password"
+
+  = form.input :current_password, hint: "We need your current password to confirm your changes", autocomplete: "current-password"
+
+  = form.button :submit, "Update"
+
+= render "devise/shared/links"
