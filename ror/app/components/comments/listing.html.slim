@@ -11,7 +11,7 @@ div id="#{dom_id(comment)}" class="p-4 bg-gray-50 dark:bg-gray-900 rounded-lg gr
         = button_to edit_comment_path(comment),
             method: :get,
             data: { turbo_frame: dom_id(comment, :content) },
-            class: "hidden group-hover:block btn-clear" do
+            class: "sm:hidden group-hover:block btn-clear" do
           = render partial: "shared/icon", locals: { name: "edit", css_class: "w-5 h-5" }
 
   turbo-frame id="#{dom_id(comment, :content)}"

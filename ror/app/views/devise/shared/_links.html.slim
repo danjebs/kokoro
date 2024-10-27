@@ -5,7 +5,7 @@
 - show_resend_unlock = devise_mapping.lockable? && resource_class.unlock_strategy_enabled?(:email) && controller_name != "unlocks"
 
 - if show_login || show_signup || show_forgot_password || show_resend_confirmation || show_resend_unlock
-  div class="flex flex-col gap-3 border-t border-solid border-gray-200 mt-8 pt-6"
+  div class="flex flex-col gap-3 border-t border-solid border-gray-200 dark:border-gray-700 mt-8 pt-6"
     - if show_login
       = link_to "Log in",
           new_session_path(resource_name),

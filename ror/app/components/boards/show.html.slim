@@ -12,7 +12,7 @@ div class="min-h-full flex flex-col"
     div class="flex"
       = link_to new_invitation_url(invitation: { collaborateable_type: "Board", collaborateable_id: board.id }), class: "btn-md btn-clear" do
         = render partial: "shared/icon", locals: { name: "invite-user", css_class: "w-6 h-6" }
-  div class="flex flex-grow py-4"
+  div class="flex flex-grow py-4 overflow-x-auto"
     div class="flex gap-4"
       - tasks_by_status.map do |task_status, tasks|
         = render Boards::Statuses::ColumnView.new(task_status: task_status, tasks: tasks)
