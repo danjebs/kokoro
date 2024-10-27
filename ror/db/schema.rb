@@ -88,7 +88,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_27_023558) do
   end
 
   create_table "tasks", force: :cascade do |t|
-    t.string "title"
+    t.string "name"
     t.bigint "board_id", null: false
     t.bigint "task_status_id", null: false
     t.bigint "creator_id", null: false

@@ -45,7 +45,7 @@ class TasksControllerTest < ActionDispatch::IntegrationTest
     assert_difference("Task.count") do
       post tasks_url, params: {
         task: {
-          title: "New Task",
+          name: "New Task",
           board_id: @board_bean.id,
           task_status_id: @status_to_do.id,
           creator_id: @user.id,
@@ -71,7 +71,7 @@ class TasksControllerTest < ActionDispatch::IntegrationTest
   test "should update task" do
     patch task_url(@task_to_do_1), params: {
       task: {
-        title: "Updated Task",
+        name: "Updated Task",
         task_status_id: @status_done.id,
         creator_id: @user.id,
         assignee_id: @user.id
@@ -109,7 +109,7 @@ class TasksControllerTest < ActionDispatch::IntegrationTest
     assert_no_difference("Task.count") do
       post tasks_url, params: {
         task: {
-          title: "New Task",
+          name: "New Task",
           board_id: @board_bean.id,
           task_status_id: @status_doing.id,
           creator_id: @user.id,
@@ -137,7 +137,7 @@ class TasksControllerTest < ActionDispatch::IntegrationTest
     sign_out @user
     patch task_url(@task_to_do_1), params: {
       task: {
-        title: "Updated Task",
+        name: "Updated Task",
         board_id: @board_bean.id,
         task_status_id: @status_done.id,
         creator_id: @user.id,
@@ -170,7 +170,7 @@ class TasksControllerTest < ActionDispatch::IntegrationTest
     assert_difference("Task.count") do
       post tasks_url, params: {
         task: {
-          title: "New Task",
+          name: "New Task",
           board_id: @board_bean.id,
           task_status_id: task_statuses(:to_do).id,
           assignee_id: @user.id
@@ -184,7 +184,7 @@ class TasksControllerTest < ActionDispatch::IntegrationTest
     assert_no_difference("Task.count") do
       post tasks_url, params: {
         task: {
-          title: 'New Task',
+          name: 'New Task',
           board_id: @board_bundy.id,
           task_status_id: task_statuses(:to_do).id,
           assignee_id: @user.id
@@ -195,12 +195,12 @@ class TasksControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update task if user has access to board" do
-    patch task_url(@task_to_do_1), params: { task: { title: 'Updated Task' } }
+    patch task_url(@task_to_do_1), params: { task: { name: 'Updated Task' } }
     assert_redirected_to @task_to_do_1
   end
 
   test "should not update task if user does not have access to board" do
-    patch task_url(@task_no_access), params: { task: { title: 'Updated Task' } }
+    patch task_url(@task_no_access), params: { task: { name: 'Updated Task' } }
     assert_response :forbidden
   end
 
@@ -222,7 +222,7 @@ class TasksControllerTest < ActionDispatch::IntegrationTest
     get board_url(@board_bean)
 
     assert_response :success
-    assert_select "*", { text: @task_to_do_1.title, count: 1 }
-    assert_select "*", { text: @task_no_access.title, count: 0 }
+    assert_select "*", { text: @task_to_do_1.name, count: 1 }
+    assert_select "*", { text: @task_no_access.name, count: 0 }
   end
 end

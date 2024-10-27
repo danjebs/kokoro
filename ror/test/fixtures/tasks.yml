@@ -1,5 +1,5 @@
 task_to_do_1:
-  title: "Task To Do"
+  name: "Task To Do"
   board: one
   task_status: to_do
   creator: bean
@@ -7,7 +7,7 @@ task_to_do_1:
   position: 1
 
 task_to_do_2:
-  title: "Task To Do 2"
+  name: "Task To Do 2"
   board: one
   task_status: to_do
   creator: bean
@@ -15,7 +15,7 @@ task_to_do_2:
   position: 2
 
 task_to_do_3:
-  title: "Task To Do 3"
+  name: "Task To Do 3"
   board: one
   task_status: to_do
   creator: bean
@@ -23,7 +23,7 @@ task_to_do_3:
   position: 3
 
 task_doing_1:
-  title: "Task Doing"
+  name: "Task Doing"
   board: one
   task_status: doing
   creator: bean
@@ -31,7 +31,7 @@ task_doing_1:
   position: 1
 
 task_doing_2:
-  title: "Task Doing 2"
+  name: "Task Doing 2"
   board: one
   task_status: doing
   creator: bean
@@ -39,7 +39,7 @@ task_doing_2:
   position: 2
 
 task_done_1:
-  title: "Task Done"
+  name: "Task Done"
   board: one
   task_status: done
   creator: bean
@@ -47,7 +47,7 @@ task_done_1:
   position: 1
 
 task_done_2:
-  title: "Task Done 2"
+  name: "Task Done 2"
   board: one
   task_status: done
   creator: bean
@@ -55,7 +55,7 @@ task_done_2:
   position: 2
 
 task_no_access:
-  title: "Task No Access"
+  name: "Task No Access"
   board: two
   task_status: board_2_to_do
   creator: bundy
