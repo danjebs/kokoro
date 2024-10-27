@@ -1,6 +1,4 @@
-class BoardsController < ApplicationController
-  layout "dashboard"
-
+class BoardsController < DashboardController
   before_action :set_breadcrumbs, only: %i[index show edit]
   before_action :set_board, only: %i[show edit update destroy]
   before_action :initialize_board, only: %i[new create]

@@ -11,6 +11,6 @@ h1 class="text-center"
   - if devise_mapping.rememberable?
     = form.input :remember_me, as: :boolean, label: "Remember me", class: "flex flex-row-reverse justify-start"
 
-  = form.button :submit, "Log in"
+  = form.button :submit, "Log in", class: "btn-lg"
 
 = render "devise/shared/links"

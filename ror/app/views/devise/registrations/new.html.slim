@@ -9,6 +9,6 @@ h1 class="text-center"
       autocomplete: "new-password"
   = form.input :password_confirmation, autocomplete: "new-password"
 
-  = form.button :submit, "Sign up"
+  = form.button :submit, "Sign up", class: "btn-lg"
 
 = render "devise/shared/links"

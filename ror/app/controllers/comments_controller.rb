@@ -1,4 +1,4 @@
-class CommentsController < ApplicationController
+class CommentsController < DashboardController
   before_action :set_comment, only: [:edit, :update, :destroy]
 
   def new

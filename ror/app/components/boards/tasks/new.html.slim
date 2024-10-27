@@ -19,4 +19,6 @@ div class="w-full h-full flex justify-center items-center"
 
       = form.hidden_field :board_id, value: @task.board_id
 
-      = form.button :submit, "Create Task"
+      = form.button :submit, "Create Task", class: "btn-lg"
+
+      = link_to "Cancel", @task.board, class: "block p-3 text-center hover:text-yellow-600"

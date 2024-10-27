@@ -1,27 +1,27 @@
-div class="mt-2" data-controller="comment-form"
+div class="" data-controller="comment-form"
   = simple_form_for @comment do |form|
     = form.hidden_field :commentable_type
     = form.hidden_field :commentable_id
 
-    = form.input :content,
+    = form.input_field :content,
         as: :text,
         label: false,
         placeholder: "Add a comment...",
-        input_html: {\
-          class: "border-none shadow-none resize-none",
-          rows: 1,
-          data: {\
-            action: "input->comment-form#handleInput focus->comment-form#handleFocus blur->comment-form#handleBlur",
-            "comment-form-target": "content",
-          },
+        class: "py-2 w-full border-none shadow-none resize-none",
+        rows: 1,
+        data: {\
+          action: "input->comment-form#handleInput focus->comment-form#handleFocus blur->comment-form#handleBlur",
+          "comment-form-target": "content",
         },
-        wrapper_html: { class: "w-full" }
+        wrapper_html: { class: "w-full mb-0" }
     div [
       id="#{dom_id(@comment.commentable, :new_form_actions)}"
-      class="hidden"
+      class="hidden mt-2"
       data-comment-form-target="actions"
     ]
       div class="w-fit flex gap-3"
-        = form.button :submit, "Add Comment", disabled: true, data: { "comment-form-target": "submit" }
-        button type="button" data-action="click->comment-form#clearContent"
+        = form.button :submit, "Add Comment", disabled: true,
+          class: "btn-sm",
+          data: { "comment-form-target": "submit" }
+        button type="button" data-action="click->comment-form#clearContent" class="btn-sm btn-clear"
           | Cancel

@@ -56,31 +56,31 @@
   }
 
   .btn-sm {
-    @apply px-2 py-2 rounded-md text-sm font-medium shadow-md hover:shadow-sm cursor-pointer;
+    @apply px-2 py-2 rounded-md text-sm font-medium cursor-pointer;
   }
 
   .btn-md {
-    @apply px-3 py-3 rounded-md text-base font-semibold shadow-md hover:shadow-sm cursor-pointer;
+    @apply px-3 py-3 rounded-md text-base font-semibold cursor-pointer;
   }
 
   .btn-lg {
-    @apply px-4 py-3 rounded-lg text-lg font-semibold shadow-md hover:shadow-sm cursor-pointer;
+    @apply px-4 py-3 rounded-lg text-lg font-semibold cursor-pointer;
   }
 
   .btn-green {
-    @apply bg-green-500 text-white;
+    @apply bg-green-500 text-white shadow-md hover:shadow-sm;
   }
 
   .btn-red {
-    @apply bg-red-400 text-white;
+    @apply bg-red-400 text-white shadow-md hover:shadow-sm;
   }
 
   .btn-yellow {
-    @apply bg-yellow-400 text-white;
+    @apply bg-yellow-400 text-white shadow-md hover:shadow-sm;
   }
 
   .btn-clear {
-    @apply bg-transparent text-gray-700 dark:text-gray-200 shadow-none hover:shadow-none;
+    @apply bg-transparent text-gray-500 dark:text-gray-400 hover:text-yellow-600 dark:hover:text-yellow-300 shadow-none hover:shadow-none;
   }
 
   .text-gray-500 {

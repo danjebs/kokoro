@@ -14,10 +14,14 @@ html
 
     = yield :head
 
-  body class="max-h-screen flex bg-blue-200 dark:bg-blue-900 p-12"
-    div class="flex flex-grow"
+  body class="max-h-screen flex bg-blue-200 dark:bg-blue-900 p-6"
+    div class="flex flex-grow gap-3"
       aside id="side-nav" class="w-full md:max-w-64"
-      div id="content-panel" class="flex-grow p-12 bg-white dark:bg-gray-800 rounded-3xl overflow-scroll"
-        = render Layout::Breadcrumbs.new(breadcrumbs: @breadcrumbs)
+        = render Layout::Sidebar.new(links: @sidebar_links)
 
-        = yield
+      div id="content-panel" class="flex flex-col flex-grow"
+        div class="flex-grow-0"
+          = render Layout::Breadcrumbs.new(breadcrumbs: @breadcrumbs)
+
+        div class="flex-grow py-6 px-8 bg-white dark:bg-gray-800 rounded-xl overflow-scroll"
+          = yield

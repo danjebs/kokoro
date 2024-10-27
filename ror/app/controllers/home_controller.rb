@@ -1,6 +1,4 @@
-class HomeController < ApplicationController
-  layout "dashboard"
-
+class HomeController < DashboardController
   before_action :set_breadcrumbs, only: %i[index]
 
   def index

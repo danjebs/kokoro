@@ -1,6 +1,4 @@
-class TasksController < ApplicationController
-  layout "dashboard"
-
+class TasksController < DashboardController
   before_action :set_task, only: %i[show edit update destroy]
   before_action :initialize_task, only: %i[new create]
   before_action :set_breadcrumbs, only: %i[index new show edit update]

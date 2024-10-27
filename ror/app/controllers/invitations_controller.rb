@@ -1,6 +1,4 @@
-class InvitationsController < ApplicationController
-  layout "dashboard"
-
+class InvitationsController < DashboardController
   before_action :set_invitation, only: %i[show edit update destroy]
   before_action :initialize_invitation, only: %i[new create]
   before_action :set_breadcrumbs, only: %i[index new]

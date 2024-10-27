@@ -1,4 +1,4 @@
-class TaskStatusesController < ApplicationController
+class TaskStatusesController < DashboardController
   before_action :set_task_status, only: %i[show edit update destroy]
   before_action :authorize_task_status, only: %i[show edit update destroy]
 

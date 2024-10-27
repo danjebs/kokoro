@@ -1,8 +1,8 @@
 div class="flex items-center justify-between"
   h1
-    | Boards
+    | My Boards
   div
-    = link_to "Create Board", new_board_path, class: "btn-lg btn-yellow"
+    = link_to "New Board", new_board_path, class: "btn-md btn-yellow"
 div class="mt-6"
   ul
     = render Boards::Listing.with_collection(boards)

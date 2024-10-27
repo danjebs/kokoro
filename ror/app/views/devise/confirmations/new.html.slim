@@ -4,6 +4,6 @@ h1 class="text-center"
 = simple_form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |form|
   = form.input :email, autofocus: true, autocomplete: "email"
 
-  = form.button :submit, "Resend confirmation instructions"
+  = form.button :submit, "Resend confirmation instructions", class: "btn-lg"
 
 = render "devise/shared/links"
