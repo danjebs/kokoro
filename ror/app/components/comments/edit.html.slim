@@ -1,0 +1,8 @@
+
+= form_with model: comment, local: false do |form|
+  = form.text_area :content, class: "w-full p-2 border rounded"
+  div class="mt-2 flex gap-2"
+    = form.submit "Save", class: "btn-sm btn-yellow"
+    = link_to "Cancel", comment.commentable,
+        class: "btn-sm btn-clear inline-block",
+        data: { turbo_frame: dom_id(comment, :content) }

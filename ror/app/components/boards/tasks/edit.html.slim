@@ -22,4 +22,3 @@ div id="#{dom_id(task, :edit)}" class="task"
               collection: users,
               prompt: "Unassigned",
               input_html: { class: "px-0 py-2 border-none appearance-none shadow-none bg-none cursor-pointer", onchange: 'this.form.submit();' }
-        / = task.assignee.present? ? task.assignee.name : nil
