@@ -42,7 +42,7 @@
   input[type=range],
   select,
   trix-editor.trix-content {
-    @apply block shadow rounded-md outline-none p-3 caret-blue-300 ring-blue-300 */
+    @apply block shadow rounded-md outline-none p-3; /** caret-primary-500 ring-primary-500 */
     @apply border-gray-200;
     @apply dark:bg-gray-700 dark:border-gray-400 dark:text-gray-300;
   }

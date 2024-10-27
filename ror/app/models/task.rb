@@ -1,4 +1,6 @@
 class Task < ApplicationRecord
+  include Commentable
+
   belongs_to :board
   belongs_to :task_status
   belongs_to :creator, class_name: "User"
@@ -11,7 +13,7 @@ class Task < ApplicationRecord
   validates :title, presence: true
 
   scope :accessible_by, ->(user) {
-    return nil if user.nil?
+    return none if user.nil?
 
     joins(board: :collaborators).where(collaborators: { user_id: user.id })
   }
@@ -19,6 +21,10 @@ class Task < ApplicationRecord
 
   def assignee_name
     assignee.present? ? assignee.name : "Unassigned"
+  end
+
+  def accessible_by?(user)
+    board.collaborators.exists?(user_id: user.id)
   end
 
   def status_label

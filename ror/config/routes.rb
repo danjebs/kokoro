@@ -3,6 +3,7 @@ Rails.application.routes.draw do
 
   resources :boards
   resources :tasks
+  resources :comments
   resources :invitations
 
   devise_for :users,

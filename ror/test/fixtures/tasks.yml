@@ -1,5 +1,3 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
 task_to_do_1:
   title: "Task To Do"
   board: one
@@ -63,4 +61,3 @@ task_no_access:
   creator: bundy
   assignee: bundy
   position: 1
-

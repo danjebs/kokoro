@@ -1,0 +1,14 @@
+task_to_do_1_comment_1:
+  commentable: task_to_do_1 (Task)
+  user: bean
+  content: Bozo
+
+task_to_do_1_comment_2:
+  commentable: task_to_do_1 (Task)
+  user: bundy
+  content: Hallo?
+
+task_no_access_comment_1:
+  commentable: task_no_access (Task)
+  user: bundy
+  content: Yes?
