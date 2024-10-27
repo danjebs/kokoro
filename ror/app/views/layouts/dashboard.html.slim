@@ -14,7 +14,7 @@ html
 
     = yield :head
 
-  body class="max-h-screen w-screen flex bg-blue-200 dark:bg-gray-800 px-2 py-4 sm:p-6"
+  body class="max-h-screen w-screen flex px-2 py-4 sm:p-6 bg-blue-200 dark:bg-gray-800"
     div class="flex flex-grow gap-3"
       aside id="side-nav" class="hidden lg:block w-full md:max-w-64"
         = render Layout::Sidebar.new(links: @sidebar_links)
