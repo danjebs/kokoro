@@ -1,6 +1,6 @@
 
 = form_with model: comment, local: false do |form|
-  = form.text_area :content, class: "w-full p-2 border rounded"
+  = form.text_area :content, class: "w-full p-2 border rounded shadow-none resize-none"
   div class="mt-2 flex gap-2"
     = form.submit "Save", class: "btn-sm btn-yellow"
     = link_to "Cancel", comment.commentable,

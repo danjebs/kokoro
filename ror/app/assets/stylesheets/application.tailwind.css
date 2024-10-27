@@ -4,11 +4,11 @@
 
 @layer components {
   body {
-    @apply min-h-screen text-gray-700 dark:text-gray-300;
+    @apply min-h-screen text-gray-700 dark:text-blue-200;
   }
 
   h1, h2, h3, h4 {
-    @apply mb-2 text-indigo-800 dark:text-blue-500;
+    @apply mb-2 text-indigo-800 dark:text-blue-400;
   }
 
   h1 {
@@ -44,7 +44,7 @@
   trix-editor.trix-content {
     @apply block shadow rounded-md outline-none p-3; /** caret-primary-500 ring-primary-500 */
     @apply border-gray-200;
-    @apply dark:bg-gray-700 dark:border-gray-400 dark:text-gray-300;
+    @apply dark:bg-gray-900 dark:border-gray-400 dark:text-gray-300;
   }
 
   input[type=checkbox] {
@@ -52,7 +52,7 @@
   }
 
   [class^="btn-"] {
-    @apply disabled:bg-gray-300;
+    @apply text-center disabled:bg-gray-300;
   }
 
   .btn-sm {
@@ -68,19 +68,19 @@
   }
 
   .btn-green {
-    @apply bg-green-500 text-white shadow-md hover:shadow-sm;
+    @apply bg-green-500 dark:bg-green-600 text-white dark:text-blue-50 shadow-md hover:shadow-sm;
   }
 
   .btn-red {
-    @apply bg-red-400 text-white shadow-md hover:shadow-sm;
+    @apply bg-red-400 dark:bg-red-700 text-white dark:text-blue-50 shadow-md hover:shadow-sm;
   }
 
   .btn-yellow {
-    @apply bg-yellow-400 text-white shadow-md hover:shadow-sm;
+    @apply bg-yellow-400 dark:bg-blue-600 dark:hover:bg-blue-700 text-white dark:text-blue-50 shadow-md hover:shadow-sm;
   }
 
   .btn-clear {
-    @apply bg-transparent text-gray-500 dark:text-gray-400 hover:text-yellow-600 dark:hover:text-yellow-300 shadow-none hover:shadow-none;
+    @apply bg-transparent text-gray-500 dark:text-gray-300 hover:text-yellow-600 dark:hover:text-blue-500 shadow-none hover:shadow-none;
   }
 
   .text-gray-500 {
