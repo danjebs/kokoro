@@ -1,8 +1,9 @@
 div class="flex items-center justify-between"
-  h1
+  h1 class="mb-0"
     | My Boards
   div
-    = link_to "New Board", new_board_path, class: "btn-md btn-yellow"
-div class="mt-6"
+    = link_to new_board_path, class: "block btn-md btn-clear", alt: "New Board" do
+      = render partial: "shared/icon", locals: { name: "plus", css_class: "w-6 h-6" }
+div class="mt-4"
   ul
     = render Boards::Listing.with_collection(boards)

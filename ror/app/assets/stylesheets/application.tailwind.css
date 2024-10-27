@@ -7,12 +7,16 @@
     @apply min-h-screen text-gray-700 dark:text-gray-200;
   }
 
+  #header-logo {
+    @apply text-blue-500 dark:text-blue-400 text-4xl font-black font-logo underline underline-offset-4 decoration-2 decoration-amber-300 decoration-wavy;
+  }
+
   h1, h2, h3, h4 {
-    @apply mb-2 text-indigo-800 dark:text-blue-400;
+    @apply mb-2 text-blue-800 dark:text-blue-400 font-sans;
   }
 
   h1 {
-    @apply text-2xl font-bold underline underline-offset-4 decoration-2 decoration-amber-300 decoration-wavy;
+    @apply text-2xl font-bold;
   }
 
   h2 {
@@ -77,6 +81,10 @@
 
   .btn-yellow {
     @apply bg-yellow-400 dark:bg-blue-600 dark:hover:bg-blue-700 text-white dark:text-blue-50 shadow-md hover:shadow-sm;
+  }
+
+  .btn-blue {
+    @apply bg-blue-400 dark:bg-blue-600 hover:bg-blue-500 dark:hover:bg-blue-700 text-white dark:text-blue-50 shadow-md hover:shadow-sm;
   }
 
   .btn-clear {

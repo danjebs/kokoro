@@ -15,7 +15,8 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Inter var', ...defaultTheme.fontFamily.sans],
+        sans: ['Montserrat', 'Inter var', ...defaultTheme.fontFamily.sans],
+        logo: ['Finger Paint', ...defaultTheme.fontFamily.sans],
       },
       colors: {
         blue: colors.blue,

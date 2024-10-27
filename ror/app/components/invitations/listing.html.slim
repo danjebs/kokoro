@@ -2,13 +2,13 @@ li id="#{dom_id(invitation, :listing)}" class="flex justify-between px-2 py-4 bo
   div class=""
     div class="font-semibold"
       = invitation.collaborateable.name
-    div class="text-xs text-gray-500"
+    div class="text-xs text-gray-500 dark:text-gray-400"
       = "Invited #{time_ago_in_words(invitation.created_at)} ago by #{invitation.inviter.name}"
   - if invitation.status_is_pending? && helpers.current_user.email == invitation.email
       div class="flex gap-2"
         = form_with model: invitation, method: :patch, local: true do |form|
           = form.hidden_field :status, value: :accepted
-          = form.submit "Accept", class: "btn-sm btn-green"
+          = form.submit "Accept", class: "btn-sm btn-blue"
         = form_with model: invitation, method: :patch, local: true do |form|
           = form.hidden_field :status, value: :declined
           = form.submit "Decline", class: "btn-sm btn-red"
