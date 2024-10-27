@@ -4,6 +4,18 @@ class ApplicationController < ActionController::Base
   # Pundit: rescue from unauthorized access
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
+  before_action :set_breadcrumbs
+
+  helper_method :breadcrumbs
+
+  def breadcrumbs
+    @breadcrumbs ||= []
+  end
+
+  def add_breadcrumb(name, path = nil)
+    breadcrumbs << Breadcrumb.new(name, path)
+  end
+
   private
 
   def store_user_location!
@@ -26,5 +38,9 @@ class ApplicationController < ActionController::Base
       store_user_location!
       redirect_to new_user_session_path
     end
+  end
+
+  def set_breadcrumbs
+    add_breadcrumb "Home", root_path
   end
 end

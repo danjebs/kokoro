@@ -3,6 +3,7 @@ class TasksController < ApplicationController
 
   before_action :set_task, only: %i[show edit update destroy]
   before_action :initialize_task, only: %i[new create]
+  before_action :set_breadcrumbs, only: %i[index new show edit update]
 
   def index
     @tasks = Task.accessible_by(current_user)
@@ -75,5 +76,22 @@ class TasksController < ApplicationController
       return {} unless params[:task].present?
 
       params.require(:task).permit(:title, :task_status_id, :position, :board_id, :assignee_id)
+    end
+
+    def set_breadcrumbs
+      if action_name == "index"
+        add_breadcrumb("Tasks", tasks_path)
+      else
+        add_breadcrumb("Boards", boards_path)
+        add_breadcrumb(@task.board.name, @task.board)
+
+        if action_name == "new"
+          add_breadcrumb("New Task")
+        elsif action_name == "edit"
+          add_breadcrumb("Edit #{@task.title}")
+        else
+          add_breadcrumb(@task.title)
+        end
+      end
     end
 end

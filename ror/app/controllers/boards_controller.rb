@@ -1,6 +1,7 @@
 class BoardsController < ApplicationController
   layout "dashboard"
 
+  before_action :set_breadcrumbs, only: %i[index show edit]
   before_action :set_board, only: %i[show edit update destroy]
   before_action :initialize_board, only: %i[new create]
 
@@ -14,12 +15,16 @@ class BoardsController < ApplicationController
     @tasks_by_status = @board.task_statuses.ordered.map do |task_status|
       [task_status, task_status.tasks.ordered.accessible_by(current_user)]
     end
+
+    add_breadcrumb(@board.name)
   end
 
   def new
+    add_breadcrumb("New Board")
   end
 
   def edit
+    add_breadcrumb("Edit #{@board.name}")
   end
 
   def create
@@ -62,5 +67,9 @@ class BoardsController < ApplicationController
     return {} unless params[:board].present?
 
     params.require(:board).permit(:name)
+  end
+
+  def set_breadcrumbs
+    add_breadcrumb("Boards", action_name == "index" ? nil : boards_path)
   end
 end

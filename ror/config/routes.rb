@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root "rails/health#show"
+  root "home#index"
 
   resources :boards
   resources :tasks

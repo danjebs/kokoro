@@ -3,6 +3,7 @@ class InvitationsController < ApplicationController
 
   before_action :set_invitation, only: %i[show edit update destroy]
   before_action :initialize_invitation, only: %i[new create]
+  before_action :set_breadcrumbs, only: %i[index new]
 
   def index
     @invitations = policy_scope(Invitation)
@@ -75,5 +76,15 @@ class InvitationsController < ApplicationController
     return {} unless params[:invitation].present?
 
     params.require(:invitation).permit(:collaborateable_id, :collaborateable_type, :email, :status)
+  end
+
+  def set_breadcrumbs
+    if action_name == "index"
+      add_breadcrumb("Invitations", invitations_path)
+    elsif action_name == "new"
+      add_breadcrumb("Boards", boards_path)
+      add_breadcrumb(@invitation.collaborateable.name, @invitation.collaborateable)
+      add_breadcrumb("Invite User")
+    end
   end
 end

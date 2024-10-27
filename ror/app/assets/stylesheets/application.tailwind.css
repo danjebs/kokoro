@@ -79,6 +79,10 @@
     @apply bg-yellow-400 text-white;
   }
 
+  .btn-clear {
+    @apply bg-transparent text-gray-700 dark:text-gray-200 shadow-none hover:shadow-none;
+  }
+
   .text-gray-500 {
     @apply dark:text-gray-400;
   }

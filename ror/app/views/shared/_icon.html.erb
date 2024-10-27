@@ -1,0 +1,4 @@
+<%# locals: (name: nil, css_class: "w-6 h-6", stroke_width: "1.5") -%>
+<% if name.present? %>
+  <%= render partial: "shared/icons/#{name}", locals: { css_class: css_class, stroke_width: stroke_width } %>
+<% end %>
