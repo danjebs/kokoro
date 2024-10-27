@@ -41,6 +41,7 @@ gem "bootsnap", require: false
 
 # random stuff
 gem "tzinfo-data", platforms: %i[ windows jruby ]
+gem "ostruct"
 
 group :development, :test do
   gem "debug", platforms: %i[ mri windows ]
