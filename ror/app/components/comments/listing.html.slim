@@ -1,0 +1,10 @@
+div id="#{dom_id(comment)}" class="p-4 bg-gray-50 rounded-lg"
+  div class="flex justify-between"
+    div id="#{dom_id(comment, :details)}"class="flex text-sm gap-2"
+      div class="font-semibold"
+        = comment.user.name
+      div class="text-gray-500 dark:text-gray-400"
+        = time_display
+    div id="#{dom_id(comment, :actions)}" class=""
+  div id="#{dom_id(comment, :content)}"
+    = comment.content

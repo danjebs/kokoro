@@ -1,0 +1,27 @@
+div class="mt-2" data-controller="comment-form"
+  = simple_form_for @comment do |form|
+    = form.hidden_field :commentable_type
+    = form.hidden_field :commentable_id
+
+    = form.input :content,
+        as: :text,
+        label: false,
+        placeholder: "Add a comment...",
+        input_html: {\
+          class: "border-none shadow-none resize-none",
+          rows: 1,
+          data: {\
+            action: "input->comment-form#handleInput focus->comment-form#handleFocus blur->comment-form#handleBlur",
+            "comment-form-target": "content",
+          },
+        },
+        wrapper_html: { class: "w-full" }
+    div [
+      id="#{dom_id(@comment.commentable, :new_form_actions)}"
+      class="hidden"
+      data-comment-form-target="actions"
+    ]
+      div class="w-fit flex gap-3"
+        = form.button :submit, "Add Comment", disabled: true, data: { "comment-form-target": "submit" }
+        button type="button" data-action="click->comment-form#clearContent"
+          | Cancel

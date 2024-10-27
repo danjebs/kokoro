@@ -1,3 +1,5 @@
-div class="task"
-  h2 = @task.title
-  p = @task.status_label
+div class="mb-8"
+  = render Boards::Tasks::Edit.new(task: task)
+/ make this into a comment list turbo frame, load via turbo
+div class=""
+  = render Comments::List.new(commentable: task)

@@ -2,7 +2,12 @@ div id="#{dom_id(task_status, :column)}" class="flex flex-col w-80 h-full p-3 ro
   div class="flex-grow-0"
     h3 class="text-green-950"
       = task_status.name
-  div class="flex-grow flex flex-col gap-2 overflow-scroll" data-controller="board-drag-drop" data-board-drag-drop-target="column" data-status-id="#{task_status.id}"
+  div [
+    class="flex-grow flex flex-col gap-2 overflow-scroll"
+    data-controller="board-drag-drop"
+    data-board-drag-drop-target="column"
+    data-status-id="#{task_status.id}"
+  ]
     - task_status.tasks.ordered.each do |task|
       div class="task" data-id=task.id
         = render Boards::Tasks::Listing.new(task: task)

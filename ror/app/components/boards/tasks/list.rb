@@ -4,6 +4,7 @@ module Boards
       def initialize(tasks:)
         @tasks = tasks
       end
+
       private
 
       attr_reader :tasks

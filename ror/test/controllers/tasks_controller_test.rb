@@ -54,7 +54,7 @@ class TasksControllerTest < ActionDispatch::IntegrationTest
       }
     end
 
-    assert_redirected_to board_url(Task.last.board)
+    assert_redirected_to Task.last
     assert_equal "Task was successfully created.", flash[:notice]
   end
 
@@ -77,7 +77,7 @@ class TasksControllerTest < ActionDispatch::IntegrationTest
         assignee_id: @user.id
       }
     }
-    assert_redirected_to board_url(@task_to_do_1.board)
+    assert_redirected_to @task_to_do_1
     assert_equal "Task was successfully updated.", flash[:notice]
   end
 
@@ -177,7 +177,7 @@ class TasksControllerTest < ActionDispatch::IntegrationTest
         }
       }
     end
-    assert_redirected_to board_url(@board_bean)
+    assert_redirected_to @board_bean.tasks.last
   end
 
   test "should not create task if user does not have access to board" do
@@ -196,7 +196,7 @@ class TasksControllerTest < ActionDispatch::IntegrationTest
 
   test "should update task if user has access to board" do
     patch task_url(@task_to_do_1), params: { task: { title: 'Updated Task' } }
-    assert_redirected_to board_url(@board_bean)
+    assert_redirected_to @task_to_do_1
   end
 
   test "should not update task if user does not have access to board" do

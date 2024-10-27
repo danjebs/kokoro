@@ -1,2 +1,25 @@
-div
-  | TBC
+div id="#{dom_id(task, :edit)}" class="task"
+  div id="#{dom_id(task, :edit_details)}" class=""
+    h2 [
+        data-controller="editable"
+        data-editable-target="input"
+        data-url="#{task_path(task)}"
+        data-model="task"
+        data-field="title"
+        data-action="blur->editable#blur input->editable#input"
+      ]
+        = task.title
+    div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"
+      div
+        = simple_form_for task, html: { class: 'inline' } do |f|
+          = f.input :task_status_id,
+              collection: statuses,
+              prompt: false,
+              input_html: { class: "px-0 py-2 border-none appearance-none shadow-none bg-none cursor-pointer", onchange: 'this.form.submit();' }
+      div
+        = simple_form_for task, html: { class: 'inline' } do |f|
+          = f.input :assignee_id,
+              collection: users,
+              prompt: "Unassigned",
+              input_html: { class: "px-0 py-2 border-none appearance-none shadow-none bg-none cursor-pointer", onchange: 'this.form.submit();' }
+        / = task.assignee.present? ? task.assignee.name : nil

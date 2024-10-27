@@ -3,6 +3,7 @@ class Board < ApplicationRecord
 
   belongs_to :creator, class_name: :User
 
+  has_many :tasks
   has_many :task_statuses, dependent: :destroy
   has_many :collaborators, as: :collaborateable
   has_many :users, through: :collaborators

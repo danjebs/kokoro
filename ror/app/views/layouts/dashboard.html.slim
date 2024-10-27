@@ -16,6 +16,6 @@ html
 
   body class="max-h-screen flex bg-blue-200 dark:bg-blue-900 p-12"
     div class="flex flex-grow"
-      aside class="w-full md:max-w-64"
-      div class="flex-grow p-12 bg-white dark:bg-gray-800 rounded-3xl"
+      aside id="side-nav" class="w-full md:max-w-64"
+      div id="content-panel" class="flex-grow p-12 bg-white dark:bg-gray-800 rounded-3xl overflow-scroll"
         = yield

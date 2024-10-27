@@ -21,7 +21,7 @@ class TasksController < ApplicationController
 
   def create
     if @task.save
-      redirect_to @task.board, notice: "Task was successfully created."
+      redirect_to @task, notice: "Task was successfully created."
     else
       render :new, status: :unprocessable_entity
     end
@@ -34,7 +34,7 @@ class TasksController < ApplicationController
       if @task.update(task_params)
         @task.insert_at(position) if position
 
-        format.html { redirect_to board_url(@task.board), notice: "Task was successfully updated." }
+        format.html { redirect_to @task, notice: "Task was successfully updated." }
         format.json { render json: @task, status: :ok, location: @task }
       else
         format.html { render render :edit, status: :unprocessable_entity }
