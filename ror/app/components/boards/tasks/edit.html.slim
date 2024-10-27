@@ -5,10 +5,10 @@ div id="#{dom_id(task, :edit)}" class="task"
         data-editable-target="input"
         data-url="#{task_path(task)}"
         data-model="task"
-        data-field="title"
+        data-field="name"
         data-action="blur->editable#blur input->editable#input"
       ]
-        = task.title
+        = task.name
     div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"
       div
         = simple_form_for task, html: { class: 'inline' } do |f|

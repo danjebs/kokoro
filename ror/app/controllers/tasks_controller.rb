@@ -73,7 +73,7 @@ class TasksController < DashboardController
     def task_params
       return {} unless params[:task].present?
 
-      params.require(:task).permit(:title, :task_status_id, :position, :board_id, :assignee_id)
+      params.require(:task).permit(:name, :task_status_id, :position, :board_id, :assignee_id)
     end
 
     def set_breadcrumbs
@@ -86,9 +86,9 @@ class TasksController < DashboardController
         if action_name == "new"
           add_breadcrumb("New Task")
         elsif action_name == "edit"
-          add_breadcrumb("Edit #{@task.title}")
+          add_breadcrumb("Edit #{@task.name}")
         else
-          add_breadcrumb(@task.title)
+          add_breadcrumb(@task.name)
         end
       end
     end

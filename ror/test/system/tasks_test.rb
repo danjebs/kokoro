@@ -19,7 +19,7 @@ class TasksTest < ApplicationSystemTestCase
     fill_in "Creator", with: @task.creator_id
     fill_in "Position", with: @task.position
     fill_in "Task status", with: @task.task_status_id
-    fill_in "Title", with: @task.title
+    fill_in "Name", with: @task.name
     click_on "Create Task"
 
     assert_text "Task was successfully created"
@@ -35,7 +35,7 @@ class TasksTest < ApplicationSystemTestCase
     fill_in "Creator", with: @task.creator_id
     fill_in "Position", with: @task.position
     fill_in "Task status", with: @task.task_status_id
-    fill_in "Title", with: @task.title
+    fill_in "Name", with: @task.name
     click_on "Update Task"
 
     assert_text "Task was successfully updated"

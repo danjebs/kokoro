@@ -10,7 +10,7 @@ class Task < ApplicationRecord
 
   before_save :set_position, if: :new_record?
 
-  validates :title, presence: true
+  validates :name, presence: true
 
   scope :accessible_by, ->(user) {
     return none if user.nil?

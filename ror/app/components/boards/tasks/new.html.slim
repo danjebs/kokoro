@@ -3,7 +3,7 @@ div class="w-full h-full flex justify-center items-center"
     h1 class="text-center"
       | Create a New Task
     = simple_form_for(@task) do |form|
-      = form.input :title, autofocus: true
+      = form.input :name, autofocus: true
 
       = form.input :task_status_id,
           collection: @task.board.task_statuses,
