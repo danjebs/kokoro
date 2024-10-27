@@ -1,4 +1,4 @@
-div id="#{dom_id(comment)}" class="p-4 bg-gray-50 dark:bg-gray-900 rounded-lg group"
+div id="#{dom_id(comment)}" class="p-4 bg-gray-50 dark:bg-blue-950 rounded-lg group"
   div class="flex justify-between"
     div id="#{dom_id(comment, :details)}" class="flex text-sm gap-2"
       div class="font-semibold"
@@ -15,4 +15,5 @@ div id="#{dom_id(comment)}" class="p-4 bg-gray-50 dark:bg-gray-900 rounded-lg gr
           = render partial: "shared/icon", locals: { name: "edit", css_class: "w-5 h-5" }
 
   turbo-frame id="#{dom_id(comment, :content)}"
-    = comment.content
+    div class="py-2 text-sm"
+      = comment.content

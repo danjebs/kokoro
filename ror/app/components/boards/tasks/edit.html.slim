@@ -1,5 +1,5 @@
-div id="#{dom_id(task, :edit)}" class="task"
-  div id="#{dom_id(task, :edit_details)}" class=""
+div id="#{dom_id(task, :edit)}"
+  div id="#{dom_id(task, :edit_details)}"
     h2 [
         data-controller="editable"
         data-editable-target="input"
@@ -7,18 +7,29 @@ div id="#{dom_id(task, :edit)}" class="task"
         data-model="task"
         data-field="name"
         data-action="blur->editable#blur input->editable#input"
+        class="text-xl text-gray-700 dark:text-white"
       ]
         = task.name
-    div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"
-      div
-        = simple_form_for task, html: { class: 'inline' } do |f|
-          = f.input :task_status_id,
-              collection: statuses,
-              prompt: false,
-              input_html: { class: "px-0 py-2 border-none appearance-none shadow-none bg-none cursor-pointer", onchange: 'this.form.submit();' }
-      div
-        = simple_form_for task, html: { class: 'inline' } do |f|
-          = f.input :assignee_id,
-              collection: users,
-              prompt: "Unassigned",
-              input_html: { class: "px-0 py-2 border-none appearance-none shadow-none bg-none cursor-pointer", onchange: 'this.form.submit();' }
+    div class="flex flex-col gap-1 text-sm"
+      div class="flex items-center gap-4"
+        div class="w-20 text-gray-500 dark:text-gray-400"
+          | Status
+        div class="w-full"
+          = simple_form_for task, html: { class: 'inline' } do |f|
+            = f.input_field :task_status_id,
+                collection: statuses,
+                class: "w-full py-2 border-none appearance-none shadow-none bg-none hover:bg-gray-50 dark:hover:bg-gray-800 cursor-pointer",
+                onchange: 'this.form.submit();',
+                label: false,
+                prompt: false
+      div class="flex items-center gap-4"
+        div class="w-20 text-gray-500 dark:text-gray-400"
+          | Assignee
+        div class="w-full"
+          = simple_form_for task, html: { class: 'inline' } do |f|
+            = f.input_field :assignee_id,
+                collection: users,
+                onchange: 'this.form.submit();',
+                class: "w-full py-2 border-none appearance-none shadow-none bg-none hover:bg-gray-50 dark:hover:bg-gray-800 cursor-pointer",
+                label: false,
+                prompt: "Unassigned"

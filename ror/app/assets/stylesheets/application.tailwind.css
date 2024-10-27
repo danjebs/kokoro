@@ -4,7 +4,7 @@
 
 @layer components {
   body {
-    @apply min-h-screen text-gray-700 dark:text-blue-200;
+    @apply min-h-screen text-gray-700 dark:text-gray-200;
   }
 
   h1, h2, h3, h4 {
