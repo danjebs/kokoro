@@ -1,5 +1,5 @@
 module Boards
-  class New < ViewComponent::Base
+  class New < BaseComponent
     def initialize(board:)
       @board = board
     end

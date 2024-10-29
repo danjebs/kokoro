@@ -1,5 +1,5 @@
 module Boards
-  class List < ViewComponent::Base
+  class List < BaseComponent
     def initialize(boards:)
       @boards = boards
     end

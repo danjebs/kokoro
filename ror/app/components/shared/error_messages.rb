@@ -1,4 +1,4 @@
-class Shared::ErrorMessages < ViewComponent::Base
+class Shared::ErrorMessages < BaseComponent
   def initialize(resource:)
     @resource = resource
   end

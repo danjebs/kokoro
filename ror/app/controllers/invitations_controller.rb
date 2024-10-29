@@ -80,7 +80,7 @@ class InvitationsController < DashboardController
     if action_name == "index"
       add_breadcrumb("Invitations", invitations_path)
     elsif action_name == "new"
-      add_breadcrumb("Boards", boards_path)
+      add_breadcrumb(@invitation.collaborateable.class.name.pluralize, boards_path)
       add_breadcrumb(@invitation.collaborateable.name, @invitation.collaborateable)
       add_breadcrumb("Invite User")
     end

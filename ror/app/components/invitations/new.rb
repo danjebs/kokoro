@@ -1,5 +1,5 @@
 module Invitations
-  class New < ViewComponent::Base
+  class New < BaseComponent
     def initialize(invitation:)
       @invitation = invitation
     end

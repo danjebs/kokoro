@@ -1,4 +1,4 @@
-class Boards::Tasks::Edit < ViewComponent::Base
+class Boards::Tasks::Edit < BaseComponent
   def initialize(task:)
     @task = task
     @statuses = task.board.task_statuses

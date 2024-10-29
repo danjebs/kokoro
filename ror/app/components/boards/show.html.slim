@@ -2,11 +2,9 @@ div class="min-h-full flex flex-col"
   div class="flex justify-between items-center"
     h1 [
       data-controller="editable"
-      data-editable-target="input"
       data-url="#{board_path(board)}"
       data-model="board"
       data-field="name"
-      data-action="blur->editable#blur input->editable#input"
     ]
       = board.name
     div class="flex"

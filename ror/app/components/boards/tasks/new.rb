@@ -1,6 +1,6 @@
 module Boards
   module Tasks
-    class New < ViewComponent::Base
+    class New < BaseComponent
       def initialize(task:)
         @task = task
       end

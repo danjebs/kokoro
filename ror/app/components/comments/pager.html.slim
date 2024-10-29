@@ -1,0 +1,8 @@
+- if pagy.next
+  div id="#{dom_id(@commentable, :comment_pager)}" class="min-w-full flex justify-center"
+    = link_to(\
+      "Load 5 more comments",
+      @commentable.comments_path(page: @pagy.next),
+      class: "block btn-sm btn-clear",
+      data: { turbo_stream: "" }\
+    )

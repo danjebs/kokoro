@@ -1,13 +1,10 @@
-module Boards
-  module Tasks
-    class List < ViewComponent::Base
-      def initialize(tasks:)
-        @tasks = tasks
-      end
-
-      private
-
-      attr_reader :tasks
-    end
+class Boards::Tasks::List < BaseComponent
+  def initialize(tasks:, pagy:)
+    @tasks = tasks
+    @pagy = pagy
   end
+
+  private
+
+  attr_reader :tasks, :pagy
 end

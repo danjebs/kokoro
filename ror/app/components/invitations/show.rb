@@ -1,5 +1,5 @@
 module Invitations
-  class Show < ViewComponent::Base
+  class Show < BaseComponent
     def initialize(invitation:, tasks_by_status:)
       @invitation = invitation
       @tasks_by_status = tasks_by_status

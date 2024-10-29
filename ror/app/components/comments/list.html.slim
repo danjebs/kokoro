@@ -1,8 +1,6 @@
-div id="#{dom_id(commentable, :comments)}" class="py-3 border-y border-gray-100 dark:border-gray-700"
-  / h3 class="flex items-baseline gap-1"
-  /   div Comments
-  /   div class="text-gray-500 text-sm"
-  /     = commentable.comments.exists? ? "(#{commentable.comments.count})" : nil
-  div class="flex flex-col gap-3"
-    = render Comments::Listing.with_collection(commentable.comments)
-    = render Comments::New.new(comment: commentable.comments.build)
+div class="flex flex-col gap-3 py-3 border-y border-gray-100 dark:border-gray-700"
+  = render Comments::Pager.new(commentable: commentable, pagy: pagy)
+  - if comments.exists?
+    div id="#{dom_id(commentable, :comments)}" class="flex flex-col-reverse gap-3"
+      = render Comments::Listing.with_collection(comments)
+  = render Comments::New.new(comment: commentable.comments.build)

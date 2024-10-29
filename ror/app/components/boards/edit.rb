@@ -1,5 +1,5 @@
 module Boards
-  class Edit < ViewComponent::Base
+  class Edit < BaseComponent
     def initialize(board:)
       @board = board
     end

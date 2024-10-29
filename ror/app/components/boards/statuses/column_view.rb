@@ -1,6 +1,6 @@
 module Boards
   module Statuses
-    class ColumnView < ViewComponent::Base
+    class ColumnView < BaseComponent
       def initialize(task_status:, tasks:)
         @task_status = task_status
         @tasks = tasks

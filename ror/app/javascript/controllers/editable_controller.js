@@ -6,12 +6,21 @@ export default class extends Controller {
 
   // TODOD: cleanup required?
   connect() {
-    this.inputTarget.contentEditable = true
+    this.element.contentEditable = true
+    this.element.dataset.action = 'blur->editable#handleChange input->editable#handleInput'
+
+    this.element.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter') {
+          event.preventDefault()
+          this.element.blur()
+      }
+    })
+
     this.debouncedUpdate = this.debounce(this.update.bind(this), 3000)
   }
 
   async update() {
-    const input = this.inputTarget
+    const input = this.element
 
     const response = await patch(input.dataset.url, {
       body: JSON.stringify({
@@ -23,11 +32,11 @@ export default class extends Controller {
     })
   }
 
-  blur() {
+  handleChange() {
     this.update()
   }
 
-  input() {
+  handleInput() {
     this.debouncedUpdate()
   }
 

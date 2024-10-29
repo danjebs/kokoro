@@ -1,4 +1,4 @@
-class Comments::Edit < ViewComponent::Base
+class Comments::Edit < BaseComponent
   def initialize(comment:)
     @comment = comment
   end

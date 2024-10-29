@@ -1,4 +1,4 @@
-class Comments::Listing < ViewComponent::Base
+class Comments::Listing < BaseComponent
   with_collection_parameter :comment
 
   def initialize(comment:)

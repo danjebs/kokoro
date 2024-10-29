@@ -1,6 +1,6 @@
 module Boards
   module Tasks
-    class Listing < ViewComponent::Base
+    class Listing < BaseComponent
       with_collection_parameter :task
 
       def initialize(task:)

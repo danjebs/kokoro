@@ -1,5 +1,5 @@
 module Invitations
-  class Listing < ViewComponent::Base
+  class Listing < BaseComponent
     with_collection_parameter :invitation
 
     def initialize(invitation:)

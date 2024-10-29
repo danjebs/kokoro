@@ -4,7 +4,7 @@ class TasksController < DashboardController
   before_action :set_breadcrumbs, only: %i[index new show edit update]
 
   def index
-    @tasks = Task.accessible_by(current_user)
+    @pagy, @tasks = pagy(Task.accessible_by(current_user))
 
     authorize @tasks
   end
@@ -36,7 +36,7 @@ class TasksController < DashboardController
         format.html { redirect_to @task, notice: "Task was successfully updated." }
         format.json { render json: @task, status: :ok, location: @task }
       else
-        format.html { render render :edit, status: :unprocessable_entity }
+        format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @task.errors, status: :unprocessable_entity }
       end
     end

@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resources :boards
   resources :tasks
   resources :comments
+  resources :commentable_comments, only: :index
   resources :invitations
 
   devise_for :users,

@@ -1,5 +1,5 @@
 module Invitations
-  class List < ViewComponent::Base
+  class List < BaseComponent
     def initialize(invitations:)
       @invitations = invitations
     end

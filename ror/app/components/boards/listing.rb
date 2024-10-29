@@ -1,5 +1,5 @@
 module Boards
-  class Listing < ViewComponent::Base
+  class Listing < BaseComponent
     with_collection_parameter :board
 
     def initialize(board:)
