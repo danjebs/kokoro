@@ -7,3 +7,4 @@ div class="flex items-center justify-between"
 div class="mt-4"
   ul
     = render Boards::Listing.with_collection(boards)
+  == pagy_nav(pagy) if pagy.pages > 1

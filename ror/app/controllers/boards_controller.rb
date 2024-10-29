@@ -4,7 +4,7 @@ class BoardsController < DashboardController
   before_action :initialize_board, only: %i[new create]
 
   def index
-    @boards = policy_scope(Board).all
+    @pagy, @boards = pagy(policy_scope(Board.all), limit: 20)
 
     authorize @boards
   end
