@@ -8,6 +8,7 @@ class Invitation < ApplicationRecord
 
   validates :email, format: { with: Devise.email_regexp }
   validate :inviter_must_be_collaborator
+  validate :invitee_cannot_already_have_access
   validate :email_must_be_unique_unless_declined
 
   before_validation :set_defaults, on: :create
@@ -34,6 +35,12 @@ class Invitation < ApplicationRecord
   def email_must_be_unique_unless_declined
     if collaborateable.invitations.not_status_is_declined.where(email: self.email).where.not(id: self.id).exists?
       errors.add(:email, "already has a pending or accepted invitation for this #{collaborateable_type}")
+    end
+  end
+
+  def invitee_cannot_already_have_access
+    if invitee && collaborateable.collaborators.exists?(user: invitee)
+      errors.add(:email, "already has access to this #{collaborateable_type}")
     end
   end
 end
