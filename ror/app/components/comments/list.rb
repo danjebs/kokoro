@@ -1,11 +1,9 @@
 class Comments::List < BaseComponent
-  def initialize(commentable:, comments:, pagy:)
+  def initialize(commentable:)
     @commentable = commentable
-    @comments = comments
-    @pagy = pagy
   end
 
   private
 
-  attr_reader :commentable, :comments, :pagy
+  attr_reader :commentable
 end

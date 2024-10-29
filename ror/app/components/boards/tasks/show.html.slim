@@ -1,7 +1,5 @@
 div class="mb-6"
   = render Boards::Tasks::Edit.new(task: task)
 
-turbo-frame [
-  id=dom_id(task, :comment_section)
-  src=task.comments_path(page: 1)
-]
+div class=""
+  = render Comments::List.new(commentable: task)
