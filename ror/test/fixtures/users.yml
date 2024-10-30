@@ -1,19 +1,15 @@
 bean:
   name: Bean
   email: bean@yopmail.com
-  role: admin
 
 bundy:
   name: Bundy
   email: bundy@yopmail.com
-  role: user
 
 boogi:
   name: Boogi
   email: boogi@yopmail.com
-  role: user
 
 dobby:
   name: dobby
   email: dobby@yopmail.com
-  role: user

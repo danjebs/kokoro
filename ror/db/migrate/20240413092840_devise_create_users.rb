@@ -2,10 +2,6 @@
 
 class DeviseCreateUsers < ActiveRecord::Migration[7.1]
   def change
-    execute <<-SQL
-      CREATE TYPE user_role AS ENUM ('user', 'admin');
-    SQL
-
     create_table :users do |t|
       ## Database authenticatable
       t.string :email,              null: false, default: ""
@@ -21,8 +17,6 @@ class DeviseCreateUsers < ActiveRecord::Migration[7.1]
 
       t.timestamps null: false
     end
-
-    add_column :users, :role, :user_role
 
     add_index :users, :email,                unique: true
     add_index :users, :reset_password_token, unique: true
