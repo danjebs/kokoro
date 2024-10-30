@@ -1,24 +1,26 @@
+- content_for :title, "New Task in #{task.board.name}"
+
 div class="w-full h-full flex justify-center items-center"
   div class="w-full sm:w-96"
     h1 class="text-center"
       | Create a New Task
-    = simple_form_for(@task) do |form|
+    = simple_form_for(task) do |form|
       = form.input :name, autofocus: true
 
       = form.input :task_status_id,
-          collection: @task.board.task_statuses,
+          collection: task.board.task_statuses,
           value_method: :id,
           label_method: :name,
           include_blank: true
 
       = form.input :assignee_id,
-          collection: @task.board.users,
+          collection: task.board.users,
           value_method: :id,
           label_method: :name,
           include_blank: true
 
-      = form.hidden_field :board_id, value: @task.board_id
+      = form.hidden_field :board_id, value: task.board_id
 
       = form.button :submit, "Create Task", class: "btn-lg"
 
-      = link_to "Cancel", @task.board, class: "block p-3 text-center hover:text-yellow-600"
+      = link_to "Cancel", task.board, class: "block p-3 text-center hover:text-yellow-600"
