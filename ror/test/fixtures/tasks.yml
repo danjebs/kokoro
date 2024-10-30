@@ -1,6 +1,6 @@
 task_to_do_1:
   name: "Task To Do"
-  board: one
+  board_id: 1
   task_status: to_do
   creator: bean
   assignee: bean
@@ -8,7 +8,7 @@ task_to_do_1:
 
 task_to_do_2:
   name: "Task To Do 2"
-  board: one
+  board_id: 1
   task_status: to_do
   creator: bean
   assignee: bean
@@ -16,7 +16,7 @@ task_to_do_2:
 
 task_to_do_3:
   name: "Task To Do 3"
-  board: one
+  board_id: 1
   task_status: to_do
   creator: bean
   assignee: bean
@@ -24,7 +24,7 @@ task_to_do_3:
 
 task_doing_1:
   name: "Task Doing"
-  board: one
+  board_id: 1
   task_status: doing
   creator: bean
   assignee: bean
@@ -32,7 +32,7 @@ task_doing_1:
 
 task_doing_2:
   name: "Task Doing 2"
-  board: one
+  board_id: 1
   task_status: doing
   creator: bean
   assignee: bean
@@ -40,7 +40,7 @@ task_doing_2:
 
 task_done_1:
   name: "Task Done"
-  board: one
+  board_id: 1
   task_status: done
   creator: bean
   assignee: bean
@@ -48,7 +48,7 @@ task_done_1:
 
 task_done_2:
   name: "Task Done 2"
-  board: one
+  board_id: 1
   task_status: done
   creator: bean
   assignee: bean
@@ -56,7 +56,7 @@ task_done_2:
 
 task_no_access:
   name: "Task No Access"
-  board: two
+  board_id: 2
   task_status: board_2_to_do
   creator: bundy
   assignee: bundy

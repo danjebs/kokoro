@@ -5,7 +5,7 @@ class InvitationsController < DashboardController
 
   def index
     @invitations = policy_scope(Invitation)
-      .where(invitee: current_user)
+      .for_user(current_user)
       .order(status: :asc, created_at: :desc)
   end
 
@@ -35,8 +35,7 @@ class InvitationsController < DashboardController
       update_params[:invitee_id] = current_user.id
 
       if @invitation.status_is_pending? && invitation_params[:status] == "accepted"
-        collaborator = @invitation.collaborateable.collaborators.create!(user: current_user)
-        update_params[:collaborator_id] = collaborator.id
+        @invitation.collaborateable.add_collaborator(current_user)
       end
     end
 

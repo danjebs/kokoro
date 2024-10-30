@@ -1,11 +1,11 @@
 board_one_bean:
-  collaborateable: one (Board)
   user: bean
+  role: board_1_owner_role
 
 board_one_bundy:
-  collaborateable: one (Board)
   user: bundy
+  role: board_1_collaborator_role
 
 board_two_bundy:
-  collaborateable: two (Board)
   user: bundy
+  role: board_2_owner_role

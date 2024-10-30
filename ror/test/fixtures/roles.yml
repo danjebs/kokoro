@@ -1,0 +1,25 @@
+admin_role:
+  name: :admin
+
+user_role:
+  name: :user
+
+board_1_owner_role:
+  name: :owner
+  resource_type: Board
+  resource_id: 1
+
+board_1_collaborator_role:
+  name: :collaborator
+  resource_type: Board
+  resource_id: 1
+
+board_2_owner_role:
+  name: :owner
+  resource_type: Board
+  resource_id: 2
+
+board_2_collaborator_role:
+  name: :collaborator
+  resource_type: Board
+  resource_id: 2

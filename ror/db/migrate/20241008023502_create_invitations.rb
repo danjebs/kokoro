@@ -9,7 +9,6 @@ class CreateInvitations < ActiveRecord::Migration[7.1]
       t.string :email, null: false
       t.references :invitee, null: true, foreign_key: { to_table: :users }
       t.references :inviter, null: false, foreign_key: { to_table: :users }
-      t.references :collaborator, null: true, foreign_key: true
 
       t.timestamps
     end

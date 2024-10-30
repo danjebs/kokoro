@@ -6,13 +6,15 @@ class Invitation < ApplicationRecord
   enum :status, { pending: "pending", accepted: "accepted", declined: "declined" }, prefix: :status_is
 
   validates :email, format: { with: Devise.email_regexp }
-  validate :inviter_must_be_collaborator
+  validate :inviter_must_be_owner
   validate :invitee_cannot_already_have_access
   validate :email_must_be_unique_unless_declined
 
   before_validation :set_defaults, on: :create
 
-  scope :accessible_by, -> (user) { where(inviter: user).or(where(invitee: user)) }
+  scope :from_user, -> (from) { where(inviter: from) }
+  scope :for_user, -> (user) { where(invitee: user).or(where(email: user.email)) }
+  scope :accessible_by, -> (user) { from_user(user).or(for_user(user)) }
 
   def email=(value)
     self[:email] = value
@@ -25,9 +27,9 @@ class Invitation < ApplicationRecord
     self.status = :pending
   end
 
-  def inviter_must_be_collaborator
-    unless collaborateable.collaborators.exists?(user: inviter)
-      errors.add(:inviter, "must be a collaborator in the collaborateable")
+  def inviter_must_be_owner
+    unless inviter.has_role?(:owner, collaborateable)
+      errors.add(:inviter, "must be the #{collaborateable_type} owner")
     end
   end
 
@@ -38,7 +40,7 @@ class Invitation < ApplicationRecord
   end
 
   def invitee_cannot_already_have_access
-    if invitee && status_is_pending? && collaborateable.collaborators.exists?(user: invitee)
+    if invitee && status_is_pending? && collaborateable.users.exists?(invitee.id)
       errors.add(:email, "already has access to this #{collaborateable_type}")
     end
   end

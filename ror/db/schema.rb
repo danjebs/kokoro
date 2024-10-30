@@ -29,16 +29,6 @@ ActiveRecord::Schema[8.0].define(version: 2024_10_30_003832) do
     t.index ["creator_id"], name: "index_boards_on_creator_id"
   end
 
-  create_table "collaborators", force: :cascade do |t|
-    t.string "collaborateable_type", null: false
-    t.bigint "collaborateable_id", null: false
-    t.bigint "user_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["collaborateable_type", "collaborateable_id"], name: "index_collaborators_on_collaborateable"
-    t.index ["user_id"], name: "index_collaborators_on_user_id"
-  end
-
   create_table "comments", force: :cascade do |t|
     t.string "commentable_type", null: false
     t.bigint "commentable_id", null: false
@@ -56,15 +46,23 @@ ActiveRecord::Schema[8.0].define(version: 2024_10_30_003832) do
     t.string "email", null: false
     t.bigint "invitee_id"
     t.bigint "inviter_id", null: false
-    t.bigint "collaborator_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.enum "status", enum_type: "invitation_status"
     t.index ["collaborateable_type", "collaborateable_id", "email"], name: "index_invitations_on_collaborateable_and_email"
     t.index ["collaborateable_type", "collaborateable_id"], name: "index_invitations_on_collaborateable"
-    t.index ["collaborator_id"], name: "index_invitations_on_collaborator_id"
     t.index ["invitee_id"], name: "index_invitations_on_invitee_id"
     t.index ["inviter_id"], name: "index_invitations_on_inviter_id"
+  end
+
+  create_table "roles", force: :cascade do |t|
+    t.string "name"
+    t.string "resource_type"
+    t.bigint "resource_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id"
+    t.index ["resource_type", "resource_id"], name: "index_roles_on_resource"
   end
 
   create_table "task_statuses", force: :cascade do |t|
@@ -105,10 +103,16 @@ ActiveRecord::Schema[8.0].define(version: 2024_10_30_003832) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  create_table "users_roles", id: false, force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "role_id"
+    t.index ["role_id"], name: "index_users_roles_on_role_id"
+    t.index ["user_id", "role_id"], name: "index_users_roles_on_user_id_and_role_id"
+    t.index ["user_id"], name: "index_users_roles_on_user_id"
+  end
+
   add_foreign_key "boards", "users", column: "creator_id"
-  add_foreign_key "collaborators", "users"
   add_foreign_key "comments", "users"
-  add_foreign_key "invitations", "collaborators"
   add_foreign_key "invitations", "users", column: "invitee_id"
   add_foreign_key "invitations", "users", column: "inviter_id"
   add_foreign_key "task_statuses", "boards"

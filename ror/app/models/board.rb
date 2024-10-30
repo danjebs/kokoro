@@ -1,12 +1,13 @@
 class Board < ApplicationRecord
   include Collaborateable
 
+  resourcify
+
   belongs_to :creator, class_name: :User
 
   has_many :tasks
   has_many :task_statuses, dependent: :destroy
-  has_many :collaborators, as: :collaborateable
-  has_many :users, through: :collaborators
+  has_many :users, through: :roles
 
   enum :status, { active: "active", archived: "archived" }, prefix: :status_is
 
@@ -14,13 +15,6 @@ class Board < ApplicationRecord
 
   after_initialize :set_default_status, if: :new_record?
   after_create :create_default_task_statuses
-  after_create :add_creator_as_collaborator
-
-  scope :accessible_by, ->(user) {
-    return none if user.nil?
-
-    joins(:collaborators).where(collaborators: { user_id: user.id })
-  }
 
   private
 
@@ -32,9 +26,5 @@ class Board < ApplicationRecord
     task_statuses.create(name: "To Do", state: "inactive")
     task_statuses.create(name: "Doing", state: "active")
     task_statuses.create(name: "Done", state: "archived")
-  end
-
-  def add_creator_as_collaborator
-    collaborators.create!(user: creator)
   end
 end

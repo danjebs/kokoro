@@ -4,34 +4,34 @@ to_do:
   name: "To Do"
   position: 1
   state: :inactive
-  board: one
+  board_id: 1
 
 doing:
   name: "Doing"
   position: 2
   state: :active
-  board: one
+  board_id: 1
 
 done:
   name: "Done"
   position: 3
   state: :archived
-  board: one
+  board_id: 1
 
 board_2_to_do:
   name: "To Do"
   position: 1
   state: :inactive
-  board: two
+  board_id: 2
 
 board_2_doing:
   name: "Doing"
   position: 2
   state: :active
-  board: two
+  board_id: 2
 
 board_2_done:
   name: "Done"
   position: 3
   state: :archived
-  board: two
+  board_id: 2

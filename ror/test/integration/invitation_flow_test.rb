@@ -15,7 +15,7 @@ class InvitationFlowTest < ActionDispatch::IntegrationTest
 
     patch invitation_url(@invitation), params: { invitation: { status: :accepted } }
 
-    assert @invitation.collaborateable.users.include?(@invitee)
+    assert @invitation.collaborateable.users_with_access.exists?(@invitee.id)
     assert_equal @invitee.id, @invitation.reload.invitee_id
 
     assert_redirected_to @invitation.collaborateable
