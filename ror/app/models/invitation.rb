@@ -38,7 +38,7 @@ class Invitation < ApplicationRecord
   end
 
   def invitee_cannot_already_have_access
-    if invitee && collaborateable.collaborators.exists?(user: invitee)
+    if invitee && status_is_pending? && collaborateable.collaborators.exists?(user: invitee)
       errors.add(:email, "already has access to this #{collaborateable_type}")
     end
   end
