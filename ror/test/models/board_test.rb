@@ -8,7 +8,7 @@ class BoardTest < ActiveSupport::TestCase
 
   test "should set default status to active" do
     board = Board.create(name: "New Board", creator: @user)
-    assert_equal "active", board.status
+    assert board.status_is_active?
   end
 
   test "should add creator as collaborator after board creation" do

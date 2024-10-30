@@ -3,8 +3,7 @@ class Invitation < ApplicationRecord
   belongs_to :inviter, class_name: "User"
   belongs_to :collaborateable, polymorphic: true
 
-  attribute :status, :string
-  enum status: { pending: "pending", accepted: "accepted", declined: "declined" }, _prefix: :status_is
+  enum :status, { pending: "pending", accepted: "accepted", declined: "declined" }, prefix: :status_is
 
   validates :email, format: { with: Devise.email_regexp }
   validate :inviter_must_be_collaborator

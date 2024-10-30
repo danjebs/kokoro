@@ -8,8 +8,7 @@ class Board < ApplicationRecord
   has_many :collaborators, as: :collaborateable
   has_many :users, through: :collaborators
 
-  attribute :status, :string
-  enum status: { active: "active", archived: "archived" }, _prefix: :status_is
+  enum :status, { active: "active", archived: "archived" }, prefix: :status_is
 
   validates :name, presence: true, uniqueness: { scope: :creator_id }
 

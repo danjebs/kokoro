@@ -4,7 +4,7 @@ class TaskStatus < ApplicationRecord
   has_many :tasks
 
   attribute :state, :string
-  enum state: { inactive: "inactive", active: "active", archived: "archived" }, _prefix: :state_is
+  enum :state, { inactive: "inactive",  active: "active",  archived: "archived" }, prefix: :state_is
 
   validates :name, presence: true, uniqueness: { scope: :board_id }
 
