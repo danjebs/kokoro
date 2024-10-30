@@ -24,10 +24,9 @@ html
       div id="header-logo" class=""
         | kokoro
       aside id="side-nav" class="hidden lg:flex flex-grow w-full md:max-w-64"
-        = render Layout::Sidebar.new(links: @sidebar_links)
+        = render Layout::SideNav.new(links: @sidebar_links)
     div id="content-panel" class="flex flex-col flex-grow"
-      div class="flex-grow-0"
-        = render Layout::Breadcrumbs.new(breadcrumbs: @breadcrumbs)
+      = render Layout::TopNav.new(breadcrumbs: @breadcrumbs)
 
       main class="w-[calc(100vw-1rem)] sm:w-[calc(100vw-3rem)] lg:w-full flex-grow p-6 sm:py-6 sm:px-8 bg-white dark:bg-gray-900 rounded-xl overflow-y-scroll"
         = yield

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Layout::Sidebar < BaseComponent
+class Layout::SideNav < BaseComponent
   def initialize(links: [])
     @links = links
   end

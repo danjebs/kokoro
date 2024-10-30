@@ -1,0 +1,4 @@
+div class="flex-grow-0 flex justify-between items-center mb-4"
+  = render Layout::Breadcrumbs.new(breadcrumbs: breadcrumbs)
+  div
+    = button_to "Logout", destroy_user_session_path, method: :delete, class: "text-sm"
