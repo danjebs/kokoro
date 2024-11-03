@@ -40,6 +40,8 @@ gem "bootsnap", require: false
 # media processing
 # gem "image_processing", "~> 1.2"
 
+gem "dotenv"
+
 # random stuff
 gem "tzinfo-data", platforms: %i[ windows jruby ]
 gem "ostruct"

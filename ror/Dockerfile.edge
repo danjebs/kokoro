@@ -1,0 +1,21 @@
+FROM ruby:3.3.5
+
+RUN apt-get update -qq && apt-get install -y postgresql-client vim && apt-get install -y cron
+
+WORKDIR /var/www/html/ror
+COPY Gemfile /var/www/html/ror/Gemfile
+COPY Gemfile.lock /var/www/html/ror/Gemfile.lock
+RUN bundle install
+COPY . /var/www/html/ror
+
+RUN rails db:migrate
+RUN rails assets:precompile
+
+# Add a script to be executed every time the container starts.
+COPY entrypoint.sh /usr/bin/
+RUN chmod +x /usr/bin/entrypoint.sh
+ENTRYPOINT ["entrypoint.sh"]
+EXPOSE 3000
+
+# Start the main process.
+CMD cron && bundle exec rails server -e production -b 0.0.0.0
