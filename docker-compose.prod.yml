@@ -1,0 +1,22 @@
+version: '3'
+services:
+  pg:
+    image: 'postgres:16.2'
+    environment:
+      - POSTGRES_PASSWORD=${PG_PASSWORD}
+    ports:
+      - "5432:5432"
+    expose:
+      - "5432"
+  ror:
+    build:
+      dockerfile: ./Dockerfile
+    environment:
+      RAILS_ENV: production
+    ports:
+      - "3000:3000"
+  ngx:
+    volumes:
+      - ./ngx/production.conf:/etc/nginx/conf.d/default.conf
+    ports:
+      - '443:443'
