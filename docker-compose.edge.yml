@@ -10,7 +10,7 @@ services:
       - "5432"
   ror:
     build:
-      dockerfile: ./Dockerfile.prod
+      dockerfile: ./Dockerfile.edge
     environment:
       RAILS_ENV: edge
     ports:
