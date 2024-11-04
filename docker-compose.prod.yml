@@ -10,13 +10,13 @@ services:
       - "5432"
   ror:
     build:
-      dockerfile: ./Dockerfile.edge
+      dockerfile: ./Dockerfile
     environment:
-      RAILS_ENV: edge
+      RAILS_ENV: production
     ports:
-      - "3001:3000"
+      - "3000:3000"
   ngx:
     volumes:
-      - ./ngx/edge.conf:/etc/nginx/conf.d/default.conf
+      - ./ngx/production.conf:/etc/nginx/conf.d/default.conf
     ports:
-      - '444:443'
+      - '443:443'
