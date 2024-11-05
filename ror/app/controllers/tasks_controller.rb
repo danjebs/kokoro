@@ -4,9 +4,9 @@ class TasksController < DashboardController
   before_action :set_breadcrumbs, only: %i[index new show edit update]
 
   def index
-    @pagy, @tasks = pagy(Task.accessible_by(current_user))
+    authorize Task
 
-    authorize @tasks
+    @pagy, @tasks = pagy(policy_scope(Task.all))
   end
 
   def show

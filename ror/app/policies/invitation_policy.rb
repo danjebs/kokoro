@@ -1,4 +1,4 @@
-class InvitationPolicy < ApplicationPolicy
+class InvitationPolicy < DashboardPolicy
   def index?
     user.present?
   end
@@ -29,7 +29,7 @@ class InvitationPolicy < ApplicationPolicy
 
   class Scope < Scope
     def resolve
-      scope.accessible_by(user).status_is_pending
+      scope.accessible_by(user)
     end
   end
 end

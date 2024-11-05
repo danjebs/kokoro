@@ -10,5 +10,5 @@ div class="min-h-full flex flex-col"
         = render partial: "shared/icon", locals: { name: "invite-user", css_class: "w-6 h-6" }
   div class="flex flex-grow py-4 overflow-x-auto"
     div class="flex gap-4"
-      - tasks_by_status.map do |task_status, tasks|
-        = render Boards::Statuses::ColumnView.new(task_status: task_status, tasks: tasks)
+      - board.task_statuses.ordered.each do |task_status|
+        = render Boards::Statuses::ColumnView.new(task_status: task_status)

@@ -7,7 +7,7 @@ class Boards::Statuses::ColumnViewTest < ViewComponent::TestCase
   end
 
   test "renders the column view component with tasks" do
-    render_inline(Boards::Statuses::ColumnView.new(task_status: @task_status, tasks: @tasks))
+    render_inline(Boards::Statuses::ColumnView.new(task_status: @task_status))
 
     assert_text @task_status.name
     @tasks.each do |task|

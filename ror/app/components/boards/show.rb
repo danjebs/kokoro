@@ -1,12 +1,11 @@
 module Boards
   class Show < BaseComponent
-    def initialize(board:, tasks_by_status:)
+    def initialize(board:)
       @board = board
-      @tasks_by_status = tasks_by_status
     end
 
     private
 
-    attr_reader :board, :tasks_by_status
+    attr_reader :board
   end
 end

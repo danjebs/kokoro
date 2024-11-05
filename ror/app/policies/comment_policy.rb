@@ -1,4 +1,4 @@
-class CommentPolicy < ApplicationPolicy
+class CommentPolicy < DashboardPolicy
   def index?
     true
   end

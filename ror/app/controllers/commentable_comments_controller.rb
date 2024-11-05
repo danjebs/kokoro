@@ -5,9 +5,7 @@ class CommentableCommentsController < NoolController
     page = commentable_params[:page]
     limit = commentable_params[:limit]
 
-    @pagy, @comments = pagy(@commentable.comments.order(created_at: :desc), page: page, limit: limit)
-
-    authorize @comments
+    @pagy, @comments = pagy(policy_scope(@commentable.comments.order(created_at: :desc), page: page, limit: limit))
   end
 
   private

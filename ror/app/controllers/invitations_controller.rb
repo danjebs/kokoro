@@ -4,9 +4,14 @@ class InvitationsController < DashboardController
   before_action :set_breadcrumbs, only: %i[index new]
 
   def index
-    @invitations = policy_scope(Invitation)
+    authorize Invitation
+
+    unscoped_invitations = Invitation
       .for_user(current_user)
+      .status_is_pending
       .order(status: :asc, created_at: :desc)
+
+    @invitations = policy_scope(unscoped_invitations)
   end
 
   def show

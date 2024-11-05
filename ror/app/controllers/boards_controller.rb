@@ -4,16 +4,12 @@ class BoardsController < DashboardController
   before_action :initialize_board, only: %i[new create]
 
   def index
-    @pagy, @boards = pagy(policy_scope(Board.all), limit: 20)
+    authorize Board
 
-    authorize @boards
+    @pagy, @boards = pagy(policy_scope(Board.all), limit: 20)
   end
 
   def show
-    @tasks_by_status = @board.task_statuses.ordered.map do |task_status|
-      [task_status, task_status.tasks.ordered.accessible_by(current_user)]
-    end
-
     add_breadcrumb(@board.name)
   end
 

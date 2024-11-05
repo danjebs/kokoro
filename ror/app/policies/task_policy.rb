@@ -1,4 +1,4 @@
-class TaskPolicy < ApplicationPolicy
+class TaskPolicy < DashboardPolicy
   def index?
     user.present?
   end

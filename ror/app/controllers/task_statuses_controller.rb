@@ -5,7 +5,7 @@ class TaskStatusesController < DashboardController
   def index
     authorize TaskStatus
 
-    @task_statuses = TaskStatus.all
+    @task_statuses = policy_scope(TaskStatus.all)
   end
 
   def show

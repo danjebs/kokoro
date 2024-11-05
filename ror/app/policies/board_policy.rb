@@ -1,4 +1,4 @@
-class BoardPolicy < ApplicationPolicy
+class BoardPolicy < DashboardPolicy
   def index?
     user.present?
   end
