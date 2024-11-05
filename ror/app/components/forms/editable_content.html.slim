@@ -1,0 +1,10 @@
+div [
+  contenteditable="true"
+  data-controller="editable"
+  data-url="#{polymorphic_path(record)}"
+  data-model=record.class.name.underscore
+  data-field=field
+  data-action="blur->editable#handleChange input->editable#handleInput keydown->editable#handleKeydown"
+
+]
+  = record.send(field)

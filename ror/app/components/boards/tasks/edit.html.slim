@@ -1,33 +1,23 @@
 div id="#{dom_id(task, :edit)}"
   div id="#{dom_id(task, :edit_details)}"
-    h2 [
-        data-controller="editable"
-        data-url="#{task_path(task)}"
-        data-model="task"
-        data-field="name"
-        class="text-xl text-gray-700 dark:text-white"
-      ]
-        = task.name
+    h2 class="text-xl text-gray-700 dark:text-white"
+      = render Forms::EditableContent.new(record: task, field: "name")
     div class="flex flex-col gap-1 text-sm"
       div class="flex items-center gap-4"
         div class="w-20 text-gray-500 dark:text-gray-400"
           | Status
         div class="w-full"
           = render Forms::AutoSelect.new(\
-              model: "task",
+              record: task,
               field: "task_status_id",
-              url: task_path(task),
               options: statuses.map { |status| [status.name, status.id] },
-              value: task.task_status_id,
             )
       div class="flex items-center gap-4"
         div class="w-20 text-gray-500 dark:text-gray-400"
           | Assignee
         = render Forms::AutoSelect.new(\
-              model: "task",
+              record: task,
               field: "assignee_id",
-              url: task_path(task),
               options: users.map { |user| [user.name, user.id] },
-              value: task.assignee_id,
               include_blank: "Unassigned",
             )

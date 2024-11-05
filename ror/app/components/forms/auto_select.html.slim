@@ -1,9 +1,11 @@
-= select_tag "#{model}[#{field}]",
-    options_for_select(options, value),
+= select_tag "#{record.class.name.underscore}[#{field}]",
+    options_for_select(options, record.send(field)),
     data: {\
       controller: "selectable",
-      url: url,
+      url: polymorphic_path(record),
       field: field,
+      action: "change->selectable#submit",
     },
+    id: "#{dom_id(record, field)}",
     class: "w-full py-2 border-none appearance-none shadow-none bg-none hover:bg-gray-50 dark:hover:bg-gray-800 cursor-pointer",
     include_blank: include_blank

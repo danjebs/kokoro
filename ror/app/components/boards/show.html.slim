@@ -3,13 +3,8 @@
 div class="min-h-full flex flex-col"
   = helpers.turbo_stream_from board
   div class="flex justify-between items-center"
-    h1 [
-      data-controller="editable"
-      data-url="#{board_path(board)}"
-      data-model="board"
-      data-field="name"
-    ]
-      = board.name
+    h1
+      = render Forms::EditableContent.new(record: board, field: "name")
     div class="flex"
       = link_to new_invitation_url(invitation: { collaborateable_type: "Board", collaborateable_id: board.id }), class: "btn-md btn-clear" do
         = render partial: "shared/icon", locals: { name: "invite-user", css_class: "w-6 h-6" }

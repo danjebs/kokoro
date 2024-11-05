@@ -6,19 +6,16 @@ export default class extends Controller {
 
   // TODOD: cleanup required?
   connect() {
-    this.element.contentEditable = true
-    this.element.dataset.action = 'blur->editable#handleChange input->editable#handleInput'
-
-    this.element.addEventListener('keydown', (event) => {
-      if (event.key === 'Enter') {
-          event.preventDefault()
-          this.element.blur()
-      }
-    })
-
     this.debouncedUpdate = this.debounce(this.update.bind(this), 3000)
   }
 
+
+  handleKeydown(event) {
+    if (event.key === 'Enter') {
+      event.preventDefault()
+      this.element.blur()
+    }
+  }
   async update() {
     const input = this.element
 
