@@ -21,14 +21,15 @@ html
 
     = yield :head
 
-  body class="flex gap-3 max-h-screen w-screen px-2 py-4 sm:p-6 bg-blue-200 dark:bg-gray-800"
-    div class="flex flex-col flex-grow-0 w-64 gap-3"
+  body class="flex gap-3 max-h-screen w-screen p-0 sm:p-6 bg-blue-200 dark:bg-gray-800"
+    div class="hidden sm:flex flex-col flex-grow-0 w-64 gap-3"
       div id="header-logo" class=""
         | kokoro
       aside id="side-nav" class="hidden lg:flex flex-grow w-full md:max-w-64"
         = render Layout::SideNav.new(links: @sidebar_links)
     div id="content-panel" class="flex flex-col flex-grow"
-      = render Layout::TopNav.new(breadcrumbs: @breadcrumbs)
+      div class="hidden sm:block"
+        = render Layout::TopNav.new(breadcrumbs: @breadcrumbs)
 
-      main class="w-[calc(100vw-1rem)] sm:w-[calc(100vw-3rem)] lg:w-full flex-grow p-6 sm:py-6 sm:px-8 bg-white dark:bg-gray-900 rounded-xl overflow-y-scroll"
+      main class="w-screen sm:w-[calc(100vw-3rem)] lg:w-full flex-grow p-6 sm:py-6 sm:px-8 bg-white dark:bg-gray-900 sm:rounded-xl sm:overflow-y-scroll"
         = yield
