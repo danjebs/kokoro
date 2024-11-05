@@ -1,10 +1,12 @@
 class Task < ApplicationRecord
   include Commentable
 
-  belongs_to :board
+  belongs_to :board, touch: true
   belongs_to :task_status
   belongs_to :creator, class_name: "User"
   belongs_to :assignee, class_name: "User", optional: true
+
+  broadcasts_refreshes
 
   acts_as_list scope: :task_status
 

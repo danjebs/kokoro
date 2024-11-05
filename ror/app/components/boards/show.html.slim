@@ -1,6 +1,7 @@
 - content_for :title, board.name
 
 div class="min-h-full flex flex-col"
+  = helpers.turbo_stream_from board
   div class="flex justify-between items-center"
     h1 [
       data-controller="editable"

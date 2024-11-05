@@ -1,5 +1,7 @@
 - content_for :title, "#{task.name} • #{task.board.name}"
 
+= helpers.turbo_stream_from task
+
 div class="mb-6"
   = render Boards::Tasks::Edit.new(task: task)
 

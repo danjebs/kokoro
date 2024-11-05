@@ -9,6 +9,8 @@ class Board < ApplicationRecord
   has_many :task_statuses, dependent: :destroy
   has_many :users, through: :roles
 
+  broadcasts_refreshes
+
   enum :status, { active: "active", archived: "archived" }, prefix: :status_is
 
   validates :name, presence: true, uniqueness: { scope: :creator_id }

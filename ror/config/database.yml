@@ -23,10 +23,22 @@ default: &default
   pool: 5
 
 development:
-  <<: *default
+  primary:
+    <<: *default
+    database: kokoro_dev
+  cable:
+    <<: *default
+    database: kokoro_dev_cable
+    migrations_paths: db/cable_migrate
 
 edge:
-  <<: *default
+  primary:
+    <<: *default
+    database: kokoro_edge
+  cable:
+    <<: *default
+    database: kokoro_edge_cable
+    migrations_paths: db/cable_migrate
 
   # The specified database role being used to connect to PostgreSQL.
   # To create additional roles in PostgreSQL see `$ createuser --help`.
@@ -83,4 +95,10 @@ test:
 # for a full overview on how database connection configuration can be specified.
 #
 production:
-  <<: *default
+  primary:
+    <<: *default
+    database: kokoro_prod
+  cable:
+    <<: *default
+    database: kokoro_prod_cable
+    migrations_paths: db/cable_migrate
