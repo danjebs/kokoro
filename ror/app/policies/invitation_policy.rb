@@ -8,7 +8,7 @@ class InvitationPolicy < DashboardPolicy
   end
 
   def new?
-    user.present?
+    user.present? && record.present? && record.collaborateable.present? && user.has_role?(:owner, record.collaborateable)
   end
 
   def edit?
