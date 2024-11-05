@@ -19,10 +19,14 @@ class TasksController < DashboardController
   end
 
   def create
-    if @task.save
-      redirect_to @task, notice: "Task was successfully created."
-    else
-      render :new, status: :unprocessable_entity
+    respond_to do |format|
+      if @task.save
+        format.html { redirect_to @task, notice: "Task was successfully created." }
+        format.json { render json: @task, status: :created, location: @task }
+      else
+        format.html { render :new, status: :unprocessable_entity }
+        format.json { render json: @task.errors, status: :unprocessable_entity }
+      end
     end
   end
 
@@ -32,7 +36,6 @@ class TasksController < DashboardController
     respond_to do |format|
       if @task.update(task_params)
         @task.insert_at(position) if position
-
         format.html { redirect_to @task, notice: "Task was successfully updated." }
         format.json { render json: @task, status: :ok, location: @task }
       else
@@ -44,10 +47,11 @@ class TasksController < DashboardController
 
   def destroy
     board = @task.board
-
     @task.destroy
-
-    redirect_to board, notice: "Task was successfully destroyed."
+    respond_to do |format|
+      format.html { redirect_to board, notice: "Task was successfully destroyed." }
+      format.json { head :no_content }
+    end
   end
 
   private

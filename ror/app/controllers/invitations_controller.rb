@@ -19,12 +19,15 @@ class InvitationsController < DashboardController
   end
 
   def create
-    if @invitation.save
-      InvitationMailer.invitation_email(@invitation).deliver_later
-
-      redirect_to @invitation.collaborateable, notice: "Invitation was successfully created."
-    else
-      render :new, status: :unprocessable_entity
+    respond_to do |format|
+      if @invitation.save
+        InvitationMailer.invitation_email(@invitation).deliver_later
+        format.html { redirect_to @invitation.collaborateable, notice: "Invitation was successfully created." }
+        format.json { render json: @invitation, status: :created, location: @invitation }
+      else
+        format.html { render :new, status: :unprocessable_entity }
+        format.json { render json: @invitation.errors, status: :unprocessable_entity }
+      end
     end
   end
 
@@ -39,20 +42,25 @@ class InvitationsController < DashboardController
       end
     end
 
-    if @invitation.update(update_params)
-      redirect_target = @invitation.status_is_accepted? ? @invitation.collaborateable : invitations_url
-      redirect_to redirect_target, notice: "Invitation was successfully updated."
-    else
-      render :edit, status: :unprocessable_entity
+    respond_to do |format|
+      if @invitation.update(update_params)
+        redirect_target = @invitation.status_is_accepted? ? @invitation.collaborateable : invitations_url
+        format.html { redirect_to redirect_target, notice: "Invitation was successfully updated." }
+        format.json { render json: @invitation, status: :ok, location: @invitation }
+      else
+        format.html { render :edit, status: :unprocessable_entity }
+        format.json { render json: @invitation.errors, status: :unprocessable_entity }
+      end
     end
   end
 
   def destroy
     collaborateable = @invitation.collaborateable
-
     @invitation.destroy!
-
-    redirect_to collaborateable, status: :see_other, notice: "Invitation was successfully destroyed."
+    respond_to do |format|
+      format.html { redirect_to collaborateable, status: :see_other, notice: "Invitation was successfully destroyed." }
+      format.json { head :no_content }
+    end
   end
 
   private

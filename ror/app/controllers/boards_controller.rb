@@ -26,25 +26,35 @@ class BoardsController < DashboardController
   end
 
   def create
-    if @board.save
-      redirect_to @board, notice: "Board was successfully created."
-    else
-      render :new, status: :unprocessable_entity
+    respond_to do |format|
+      if @board.save
+        format.html { redirect_to @board, notice: "Board was successfully created." }
+        format.json { render json: @board, status: :created, location: @board }
+      else
+        format.html { render :new, status: :unprocessable_entity }
+        format.json { render json: @board.errors, status: :unprocessable_entity }
+      end
     end
   end
 
   def update
-    if @board.update(board_params)
-      redirect_to @board, notice: "Board was successfully updated."
-    else
-      render :edit, status: :unprocessable_entity
+    respond_to do |format|
+      if @board.update(board_params)
+        format.html { redirect_to @board, notice: "Board was successfully updated." }
+        format.json { render json: @board, status: :ok, location: @board }
+      else
+        format.html { render :edit, status: :unprocessable_entity }
+        format.json { render json: @board.errors, status: :unprocessable_entity }
+      end
     end
   end
 
   def destroy
     @board.destroy!
-
-    redirect_to boards_path, status: :see_other, notice: "Board was successfully destroyed."
+    respond_to do |format|
+      format.html { redirect_to boards_path, status: :see_other, notice: "Board was successfully destroyed." }
+      format.json { head :no_content }
+    end
   end
 
   private

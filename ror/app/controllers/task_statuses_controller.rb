@@ -27,20 +27,28 @@ class TaskStatusesController < DashboardController
 
     @task_status = TaskStatus.new(task_status_params)
 
-    if @task_status.save
-      redirect_to @task_status, notice: "Task status was successfully created."
-    else
-      render :new
+    respond_to do |format|
+      if @task_status.save
+        format.html { redirect_to @task_status, notice: "Task status was successfully created." }
+        format.json { render json: @task_status, status: :created, location: @task_status }
+      else
+        format.html { render :new }
+        format.json { render json: @task_status.errors, status: :unprocessable_entity }
+      end
     end
   end
 
   def update
     authorize @task_status
 
-    if @task_status.update(task_status_params)
-      redirect_to @task_status, notice: "Task status was successfully updated."
-    else
-      render :edit
+    respond_to do |format|
+      if @task_status.update(task_status_params)
+        format.html { redirect_to @task_status, notice: "Task status was successfully updated." }
+        format.json { render json: @task_status, status: :ok, location: @task_status }
+      else
+        format.html { render :edit }
+        format.json { render json: @task_status.errors, status: :unprocessable_entity }
+      end
     end
   end
 
@@ -48,7 +56,10 @@ class TaskStatusesController < DashboardController
     authorize @task_status
 
     @task_status.destroy
-    redirect_to task_statuses_url, notice: "Task status was successfully destroyed."
+    respond_to do |format|
+      format.html { redirect_to task_statuses_url, notice: "Task status was successfully destroyed." }
+      format.json { head :no_content }
+    end
   end
 
   private
