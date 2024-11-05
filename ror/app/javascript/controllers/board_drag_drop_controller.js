@@ -15,6 +15,17 @@ export default class extends Controller {
         onStart: this.start.bind(this),
         onEnd: this.end.bind(this),
       })
+
+      const preventContextMenu = (event) => {
+        const parent = event.target.closest('[id^="listing_task_"]')
+        if (parent) {
+          event.preventDefault()
+        }
+      }
+
+      column.querySelectorAll('[id^="listing_task_"]').forEach((link) => {
+        link.addEventListener('contextmenu', preventContextMenu)
+      })
     })
   }
 
