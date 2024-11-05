@@ -10,7 +10,7 @@ export default class extends Controller {
       Sortable.create(column, {
         group: 'tasks',
         animation: 150,
-        delay: 500,
+        delay: 300,
         delayOnTouchOnly: true,
         onStart: this.start.bind(this),
         onEnd: this.end.bind(this),
