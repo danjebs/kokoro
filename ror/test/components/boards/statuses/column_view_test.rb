@@ -10,6 +10,8 @@ class Boards::Statuses::ColumnViewTest < ViewComponent::TestCase
     render_inline(Boards::Statuses::ColumnView.new(task_status: @task_status, tasks: @tasks))
 
     assert_text @task_status.name
-    assert_selector ".task", count: @tasks.size
+    @tasks.each do |task|
+      assert_selector "a#listing_task_#{task.id}"
+    end
   end
 end

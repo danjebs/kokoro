@@ -11,7 +11,7 @@ class Boards::Tasks::ListTest < ViewComponent::TestCase
     render_inline(Boards::Tasks::List.new(tasks: @tasks, pagy: @pagy))
 
     @tasks.each do |task|
-      assert_selector "div##{dom_id(task, :listing)}"
+      assert_selector "a##{dom_id(task, :listing)}"
     end
   end
 end

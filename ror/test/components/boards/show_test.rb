@@ -17,7 +17,7 @@ class Boards::ShowTest < ViewComponent::TestCase
     @tasks_by_status.each do |task_status, tasks|
       assert_selector "div##{dom_id(task_status, :column)}" do
         tasks.each do |task|
-          assert_selector "div##{dom_id(task, :listing)}"
+          assert_selector "a##{dom_id(task, :listing)}"
         end
       end
     end
